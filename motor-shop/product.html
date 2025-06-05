@@ -4,58 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chi tiết sản phẩm - MotorShop</title>
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- CSS custom -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Optional CSS for thumbnail images */
+        .thumbnail-img {
+            width: 100%;
+            height: 80px; /* Điều chỉnh chiều cao phù hợp */
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border 0.2s ease;
+        }
+        .thumbnail-img:hover {
+            border-color: #6c757d; /* Màu border khi hover */
+        }
+    </style>
 </head>
 <body>
-    <!-- Header (giống index.html) -->
     <header class="bg-dark py-3">
-        <!-- ... cùng nội dung như index.html ... -->
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand fw-bold" href="index.html">
+                        <i class="fas fa-motorcycle me-2"></i>MotorShop
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="index.html">Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sản phẩm</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Giới thiệu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Liên hệ</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex">
+                            <a href="cart.html" class="btn btn-outline-light me-2 position-relative">
+                                <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">
+                                    0
+                                    <span class="visually-hidden">sản phẩm trong giỏ</span>
+                                </span>
+                            </a>
+                            <a href="login.html" class="btn btn-light"><i class="fas fa-user-circle me-2"></i>Đăng nhập</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
 
-    <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="bg-light py-3">
         <div class="container">
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
                 <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Honda CBR1000RR</li>
+                <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-product-name">Tên sản phẩm</li>
             </ol>
         </div>
     </nav>
 
-    <!-- Chi tiết sản phẩm -->
     <section class="py-5">
         <div class="container">
             <div class="row">
-                <!-- Hình ảnh sản phẩm -->
                 <div class="col-lg-6">
                     <div class="mb-4">
-                        <img id="main-image" src="images/product1.jpg" class="img-fluid rounded" alt="Honda CBR1000RR">
+                        <img id="product-detail-main-image" src="images/placeholder.jpg" class="img-fluid rounded" alt="Product Image" style="width: 650px; height:auto;">
                     </div>
                     <div class="row g-2">
-                        <div class="col-3">
-                            <img src="images/product1_thumb1.jpg" class="img-fluid rounded thumbnail" alt="Thumb 1">
-                        </div>
-                        <div class="col-3">
-                            <img src="images/product1_thumb2.jpg" class="img-fluid rounded thumbnail" alt="Thumb 2">
-                        </div>
-                        <div class="col-3">
-                            <img src="images/product1_thumb3.jpg" class="img-fluid rounded thumbnail" alt="Thumb 3">
-                        </div>
-                        <div class="col-3">
-                            <img src="images/product1_thumb4.jpg" class="img-fluid rounded thumbnail" alt="Thumb 4">
+                        <div class="row row-cols-4 g-2" id="product-thumbnails-container">
                         </div>
                     </div>
                 </div>
                 
-                <!-- Thông tin sản phẩm -->
                 <div class="col-lg-6">
-                    <h1 class="mb-3">Honda CBR1000RR</h1>
+                    <h1 class="mb-3" id="product-detail-name">Tên sản phẩm</h1>
+                    <p class="text-muted mb-2">ID: <span id="product-detail-id"></span></p>
                     <div class="d-flex align-items-center mb-3">
                         <div class="text-warning me-2">
                             <i class="fas fa-star"></i>
@@ -68,27 +103,19 @@
                     </div>
                     
                     <div class="mb-4">
-                        <h2 class="text-primary">850.000.000 VND</h2>
+                        <h2 class="text-primary" id="product-detail-price">Giá sản phẩm</h2>
                         <p class="text-success"><i class="fas fa-check-circle me-2"></i>Còn hàng</p>
                     </div>
                     
                     <div class="mb-4">
                         <h5>Mô tả sản phẩm</h5>
-                        <p>Honda CBR1000RR là mẫu xe thể thao hàng đầu của Honda với động cơ 1000cc mạnh mẽ, thiết kế thể thao đậm chất đua xe. Xe trang bị đầy đủ các công nghệ hiện đại nhất như hệ thống chống bó cứng phanh ABS, kiểm soát lực kéo, và nhiều chế độ lái khác nhau.</p>
+                        <p id="product-detail-description">Mô tả sản phẩm...</p>
                     </div>
                     
                     <div class="mb-4">
                         <h5>Thông số kỹ thuật</h5>
-                        <ul class="list-unstyled">
-                            <li><strong>Hãng sản xuất:</strong> Honda</li>
-                            <li><strong>Dòng xe:</strong> Thể thao</li>
-                            <li><strong>Dung tích:</strong> 1000cc</li>
-                            <li><strong>Công suất:</strong> 189 mã lực</li>
-                            <li><strong>Mô-men xoắn:</strong> 114 Nm</li>
-                            <li><strong>Hộp số:</strong> 6 cấp</li>
-                            <li><strong>Trọng lượng:</strong> 201 kg</li>
-                            <li><strong>Bảo hành:</strong> 24 tháng</li>
-                        </ul>
+                        <ul class="list-unstyled" id="product-detail-specs">
+                            </ul>
                     </div>
                     
                     <div class="d-flex align-items-center mb-4">
@@ -96,7 +123,7 @@
                             <label for="quantity" class="form-label">Số lượng:</label>
                             <input type="number" id="quantity" class="form-control" value="1" min="1" style="width: 70px;">
                         </div>
-                        <button id="add-to-cart" class="btn btn-primary btn-lg">
+                        <button id="add-to-cart-btn-detail" class="btn btn-primary btn-lg">
                             <i class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ hàng
                         </button>
                     </div>
@@ -112,7 +139,6 @@
                 </div>
             </div>
             
-            <!-- Đánh giá sản phẩm -->
             <div class="row mt-5">
                 <div class="col-12">
                     <div class="card">
@@ -133,7 +159,6 @@
                                     <p class="text-muted">12 đánh giá</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <!-- Danh sách đánh giá -->
                                     <div class="mb-4">
                                         <div class="d-flex justify-content-between mb-2">
                                             <h6>Nguyễn Văn A</h6>
@@ -164,7 +189,6 @@
                                         <p>Xe tốt nhưng giá hơi cao. Dịch vụ hậu mãi của cửa hàng rất tốt.</p>
                                     </div>
                                     
-                                    <!-- Form đánh giá -->
                                     <form id="review-form">
                                         <h5 class="mb-3">Viết đánh giá của bạn</h5>
                                         <div class="mb-3">
@@ -192,59 +216,175 @@
         </div>
     </section>
 
-    <!-- Footer (giống index.html) -->
     <footer class="bg-dark text-white py-5">
-        <!-- ... cùng nội dung như index.html ... -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>Về chúng tôi</h5>
+                    <p>MotorShop là điểm đến lý tưởng cho những người đam mê xe motor, cung cấp các dòng xe mới nhất, phụ kiện và dịch vụ bảo dưỡng chuyên nghiệp.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Sản phẩm</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Xe Sportbike</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Xe Nakedbike</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Xe Cruiser</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Xe Touring</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Hỗ trợ khách hàng</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Chính sách bảo mật</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Chính sách bảo hành</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Thanh toán & giao nhận</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone me-2"></i> (028) 1234 5678</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@motorshop.vn</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 MotorShop. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Designed with <i class="fas fa-heart text-danger"></i> by MotorShop Team</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
+    <script src="js/cart.js"></script>
     <script src="js/main.js"></script>
     
     <script>
-        // Xử lý thay đổi ảnh khi click vào thumbnail
-        document.addEventListener('DOMContentLoaded', function() {
-            const mainImage = document.getElementById('main-image');
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            
-            thumbnails.forEach(thumb => {
-                thumb.addEventListener('click', function() {
-                    mainImage.src = this.src.replace('_thumb', '');
-                });
-            });
-            
-            // Xử lý thêm vào giỏ hàng
-            const addToCartBtn = document.getElementById('add-to-cart');
-            if (addToCartBtn) {
-                addToCartBtn.addEventListener('click', function() {
-                    const quantity = parseInt(document.getElementById('quantity').value);
-                    const productId = 1; // Lấy từ URL hoặc database
-                    const productName = 'Honda CBR1000RR';
-                    const productPrice = 850000000;
-                    const productImage = 'images/product1.jpg';
-                    
-                    // Thêm vào giỏ hàng
-                    addToCart(productId, productName, productPrice, productImage);
-                });
+        document.addEventListener('DOMContentLoaded', async function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+
+            if (!productId) {
+                alert('Không tìm thấy ID sản phẩm!');
+                window.location.href = 'index.html';
+                return;
             }
-            
-            // Xử lý form đánh giá
-            const reviewForm = document.getElementById('review-form');
-            if (reviewForm) {
-                reviewForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const rating = document.getElementById('rating').value;
-                    const reviewText = document.getElementById('review-text').value;
-                    
-                    if (reviewText.trim() === '') {
-                        showAlert('Vui lòng nhập nội dung đánh giá', 'warning');
-                        return;
+
+            try {
+                const response = await fetch('data/product.json');
+                const products = await response.json();
+                const product = products.find(p => p.id === productId);
+
+                if (product) {
+                    // Cập nhật Breadcrumb
+                    document.getElementById('breadcrumb-product-name').textContent = product.name;
+
+                    // Điền thông tin sản phẩm vào HTML
+                    document.getElementById('product-detail-name').textContent = product.name;
+                    document.getElementById('product-detail-id').textContent = product.id;
+                    document.getElementById('product-detail-price').textContent = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price);
+                    document.getElementById('product-detail-description').textContent = product.description;
+
+                    // ---------- Cập nhật phần ảnh sản phẩm ----------
+                    const mainImage = document.getElementById('product-detail-main-image');
+                    const thumbnailsContainer = document.getElementById('product-thumbnails-container');
+                    thumbnailsContainer.innerHTML = ''; // Xóa các thumbnail cũ nếu có
+
+                    if (product.images && product.images.length > 0) {
+                        // Đặt ảnh chính là ảnh đầu tiên trong mảng
+                        mainImage.src = product.images[0];
+
+                        // Tạo và thêm các ảnh thumbnail
+                        product.images.forEach((imgSrc, index) => {
+                            const colDiv = document.createElement('div');
+                            colDiv.className = 'col'; // Sử dụng cột Bootstrap
+                            const img = document.createElement('img');
+                            img.src = imgSrc;
+                            img.className = 'img-fluid rounded thumbnail-img'; // Thêm class cho thumbnail
+                            img.alt = `Product thumbnail ${index + 1}`;
+                            img.style.cursor = 'pointer'; // Hiệu ứng con trỏ
+                            img.style.border = '2px solid transparent'; // Border mặc định
+                            img.style.transition = 'border 0.2s ease'; // Hiệu ứng chuyển tiếp
+
+                            // Đánh dấu ảnh thumbnail đầu tiên là active
+                            if (index === 0) {
+                                img.style.borderColor = '#007bff'; // Màu border khi active
+                            }
+
+                            // Xử lý sự kiện click vào thumbnail để đổi ảnh chính
+                            img.addEventListener('click', function() {
+                                mainImage.src = this.src;
+                                // Xóa border của tất cả các thumbnail
+                                document.querySelectorAll('.thumbnail-img').forEach(thumb => {
+                                    thumb.style.borderColor = 'transparent';
+                                });
+                                // Thêm border cho thumbnail được click
+                                this.style.borderColor = '#007bff';
+                            });
+
+                            colDiv.appendChild(img);
+                            thumbnailsContainer.appendChild(colDiv);
+                        });
+                    } else {
+                        mainImage.src = 'images/placeholder.jpg'; // Ảnh mặc định nếu không có ảnh
+                    }
+                    // --------------------------------------------------
+
+                    // Điền thông số kỹ thuật
+                    const specsList = document.getElementById('product-detail-specs');
+                    specsList.innerHTML = '';
+                    for (const key in product.specs) {
+                        const li = document.createElement('li');
+                        let specName = key.replace(/_/g, ' ');
+                        specName = specName.charAt(0).toUpperCase() + specName.slice(1);
+                        li.innerHTML = `<strong>${specName}:</strong> ${Array.isArray(product.specs[key]) ? product.specs[key].join(', ') : product.specs[key]}`;
+                        specsList.appendChild(li);
+                    }
+
+                    // Xử lý nút "Thêm vào giỏ" trên trang chi tiết sản phẩm
+                    const addToCartBtnDetail = document.getElementById('add-to-cart-btn-detail');
+                    if (addToCartBtnDetail) {
+                        addToCartBtnDetail.addEventListener('click', function() {
+                            const quantity = parseInt(document.getElementById('quantity').value);
+                            // Truyền đường dẫn ảnh đầu tiên (ảnh chính) vào giỏ hàng
+                            addToCart(product.id, product.name, product.price, product.images[0], quantity);
+                        });
                     }
                     
-                    showAlert('Cảm ơn bạn đã đánh giá sản phẩm!', 'success');
-                    this.reset();
-                });
+                    // Xử lý form đánh giá (giữ nguyên logic nếu không thay đổi)
+                    const reviewForm = document.getElementById('review-form');
+                    if (reviewForm) {
+                        reviewForm.addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            const rating = document.getElementById('rating').value;
+                            const reviewText = document.getElementById('review-text').value;
+                            
+                            if (reviewText.trim() === '') {
+                                showAlert('Vui lòng nhập nội dung đánh giá', 'warning');
+                                return;
+                            }
+                            
+                            showAlert('Cảm ơn bạn đã đánh giá sản phẩm!', 'success');
+                            this.reset();
+                        });
+                    }
+
+                } else {
+                    alert('Không tìm thấy sản phẩm này!');
+                    window.location.href = 'index.html';
+                }
+
+            } catch (error) {
+                console.error('Lỗi khi tải chi tiết sản phẩm:', error);
+                alert('Có lỗi xảy ra khi tải thông tin sản phẩm.');
+                //window.location.href = 'index.html';
             }
         });
     </script>

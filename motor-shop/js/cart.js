@@ -142,3 +142,55 @@ function removeFromCart(index) {
 
 // Hiển thị giỏ hàng khi trang được tải
 document.addEventListener('DOMContentLoaded', displayCart);
+
+if (typeof formatCurrency !== 'function') {
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    displayCart();
+    updateCartCount(); // Cập nhật số lượng giỏ hàng khi tải trang
+
+    // ... (các sự kiện click cho nút tăng/giảm số lượng và xóa sản phẩm đã có)
+
+    // Bắt sự kiện click cho nút "Hoàn tất thanh toán" mới
+    const processCheckoutBtn = document.getElementById('process-checkout-btn');
+    if (processCheckoutBtn) {
+        processCheckoutBtn.addEventListener('click', function() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Kiểm tra nếu giỏ hàng trống thì không cho thanh toán
+            if (cart.length === 0) {
+                showAlert('Giỏ hàng của bạn đang trống! Vui lòng thêm sản phẩm.', 'warning');
+                return;
+            }
+
+            // Mô phỏng quá trình thanh toán thành công
+            // Trong thực tế, ở đây bạn sẽ gửi dữ liệu đơn hàng lên server
+            // và chờ phản hồi từ cổng thanh toán.
+            
+            showAlert('Đơn hàng đã được thanh toán thành công! Cảm ơn bạn đã mua hàng.', 'success');
+
+            // Xóa toàn bộ giỏ hàng khỏi localStorage
+            localStorage.removeItem('cart');
+
+            // Cập nhật lại số lượng sản phẩm trên icon giỏ hàng về 0
+            // Hàm updateCartCount() sẽ đọc lại localStorage (hiện đã trống)
+            if (typeof updateCartCount === 'function') {
+                updateCartCount(); 
+            }
+
+            // Hiển thị lại giỏ hàng trên trang cart.html (sẽ hiển thị giỏ hàng trống)
+            displayCart(); 
+
+            // (Tùy chọn) Chuyển hướng người dùng về trang chủ sau vài giây
+            setTimeout(() => {
+                window.location.href = 'index.html'; // Chuyển về trang chủ
+            }, 2000); // Chuyển hướng sau 2 giây
+        });
+    }
+});
+

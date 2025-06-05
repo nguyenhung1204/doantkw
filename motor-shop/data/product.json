@@ -1,0 +1,71 @@
+[
+    {
+        "id": 1,
+        "name": "Honda CBR1000RR",
+        "price": 850000000,
+        "image": "images/Honda CBR1000RR.jpg",
+        "description": "Honda CBR1000RR là mẫu xe thể thao hàng đầu của Honda với động cơ 1000cc mạnh mẽ, thiết kế thể thao đậm chất đua xe. Xe trang bị đầy đủ các công nghệ hiện đại nhất như hệ thống chống bó cứng phanh ABS, kiểm soát lực kéo, và nhiều chế độ lái khác nhau.",
+        "specs": {
+            "Hãng sản xuất": "Honda",
+            "Dòng xe": "Thể thao",
+            "Dung tích": "1000cc",
+            "Công suất": "189 mã lực",
+            "Mô-men xoắn": "114 Nm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "201 kg",
+            "Bảo hành": "24 tháng"
+        },
+        "images": [
+            "images/Honda CBR1000RR.jpg",
+            "images/Honda CBR1000RR_1.jpg",
+            "images/Honda CBR1000RR_2.jpg",
+            "images/Honda CBR1000RR_3.jpg"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Yamaha R1",
+        "price": 1000000000,
+        "image": "images/Yamaha R1.jpg",
+        "description": "Yamaha R1 là mẫu xe thể thao hàng đầu của Honda với động cơ 998cc mạnh mẽ, thiết kế thể thao đậm chất đua xe. Xe trang bị đầy đủ các công nghệ hiện đại nhất như hệ thống chống bó cứng phanh ABS, kiểm soát lực kéo, và nhiều chế độ lái khác nhau.",
+        "specs": {
+            "Hãng sản xuất": "Yamaha",
+            "Dòng xe": "Thể thao",
+            "Dung tích": "998cc",
+            "Công suất": "147,1 kW (200,0 PS) @ 13.500 vòng/phút",
+            "Mô-men xoắn": "113,3 Nm (11,6 kg-m) @ 11.500 vòng/phút",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "201 kg",
+            "Bảo hành": "12 tháng"
+        },
+        "images": [
+            "images/Yamaha R1.jpg",
+            "images/Yamaha R1_1.jpg",
+            "images/Yamaha R1_2.jpg",
+            "images/Yamaha R1_3.jpg"
+        ]
+    },    
+    {
+        "id": 3,
+        "name": "Ducati Panigale V4",
+        "price": 1250000000,
+        "image": "images/Ducati Panigale V4.jpg",
+        "description": "Ducati Panigale V4 là mẫu xe thể thao hàng đầu của Honda với động cơ 1103cc mạnh mẽ, thiết kế thể thao đậm chất đua xe. Xe trang bị đầy đủ các công nghệ hiện đại nhất như hệ thống chống bó cứng phanh ABS, kiểm soát lực kéo, và nhiều chế độ lái khác nhau.",
+        "specs": {
+            "Hãng sản xuất": "Honda",
+            "Dòng xe": "Thể thao",
+            "Dung tích": "1103cc",
+            "Công suất": "214 hp @ 13,000 rpm",
+            "Mô-men xoắn": "124.0 Nm @ 10,000 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "175 kg",
+            "Bảo hành": "36 tháng"
+        },
+        "images": [
+            "images/Ducati Panigale V4.jpg",
+            "images/Ducati Panigale V4_1.jpg",
+            "images/Ducati Panigale V4_2.jpg",
+            "images/Ducati Panigale V4_3.jpg"
+        ]
+    }
+]
