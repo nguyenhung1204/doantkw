@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - MotorShop</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS custom -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .register-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        
+        .register-bg {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .password-strength {
+            height: 5px;
+            margin-top: 5px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body class="register-bg">
+    <div class="container">
+        <div class="register-container">
+            <div class="text-center mb-4">
+                <a href="index.html">
+                    <i class="fas fa-motorcycle fa-3x text-primary mb-3"></i>
+                    <h2>MotorShop</h2>
+                </a>
+            </div>
+            
+            <h3 class="text-center mb-4">Tạo tài khoản mới</h3>
+            
+            <form id="register-form">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="first-name" class="form-label">Họ</label>
+                        <input type="text" class="form-control" id="first-name" required>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="last-name" class="form-label">Tên</label>
+                        <input type="text" class="form-control" id="last-name" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Số điện thoại</label>
+                    <input type="tel" class="form-control" id="phone" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input type="password" class="form-control" id="password" required>
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="password-strength-bar"></div>
+                    </div>
+                    <small class="text-muted">Mật khẩu phải có ít nhất 6 ký tự</small>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="confirm-password" class="form-label">Xác nhận mật khẩu</label>
+                    <input type="password" class="form-control" id="confirm-password" required>
+                </div>
+                
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="terms" required>
+                    <label class="form-check-label" for="terms">
+                        Tôi đồng ý với <a href="#" class="text-primary">Điều khoản dịch vụ</a> và <a href="#" class="text-primary">Chính sách bảo mật</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 mb-3">Đăng ký</button>
+                
+                <div class="text-center">
+                    <p class="mb-0">Đã có tài khoản? <a href="login.html" class="text-primary">Đăng nhập ngay</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Kiểm tra độ mạnh mật khẩu
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('password-strength-bar');
+            let strength = 0;
+            
+            if (password.length >= 6) strength += 20;
+            if (password.length >= 8) strength += 20;
+            if (/[A-Z]/.test(password)) strength += 20;
+            if (/[0-9]/.test(password)) strength += 20;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+            
+            strengthBar.style.width = strength + '%';
+            
+            if (strength < 40) {
+                strengthBar.style.backgroundColor = '#dc3545';
+            } else if (strength < 80) {
+                strengthBar.style.backgroundColor = '#fd7e14';
+            } else {
+                strengthBar.style.backgroundColor = '#28a745';
+            }
+        });
+        
+        // Validate form đăng ký (đã có trong main.js)
+    </script>
+    <script src="js/register.js"></script>
+</body>
+</html>

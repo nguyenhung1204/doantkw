@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorShop - Cửa hàng xe motor</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS custom -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Internal CSS cho các style quan trọng */
+        :root {
+            --primary-color: #e63946;
+            --secondary-color: #1d3557;
+            --light-color: #f1faee;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-dark py-3">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand fw-bold" href="index.html">
+                        <i class="fas fa-motorcycle me-2"></i>MotorShop
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="index.html">Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sản phẩm</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Liên hệ</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex">
+                            <form class="d-flex me-2">
+                                <input class="form-control me-2" type="search" placeholder="Tìm kiếm...">
+                                <button class="btn btn-outline-light" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                            <a href="cart.html" class="btn btn-outline-light me-2">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span id="cart-count" class="badge bg-danger">0</span>
+                            </a>
+                            <a href="login.html" class="btn btn-primary">
+                                <i class="fas fa-user"></i> Đăng nhập
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Slider -->
+    <section class="mb-5">
+        <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/slide1.jpg" class="d-block w-100" alt="Xe motor 1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Honda CBR1000RR</h5>
+                        <p>Mẫu xe thể thao hàng đầu</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/slide2.jpg" class="d-block w-100" alt="Xe motor 2">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Yamaha R1</h5>
+                        <p>Hiệu suất vượt trội</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/slide3.jpg" class="d-block w-100" alt="Xe motor 3">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Ducati Panigale</h5>
+                        <p>Phong cách Ý đích thực</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#mainSlider" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mainSlider" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Danh sách sản phẩm -->
+    <section class="container mb-5">
+        <h2 class="text-center mb-4">Sản phẩm nổi bật</h2>
+        <div class="row">
+            <!-- Sản phẩm 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="images/product1.jpg" class="card-img-top" alt="Honda CBR1000RR">
+                    <div class="card-body">
+                        <h5 class="card-title">Honda CBR1000RR</h5>
+                        <p class="card-text text-muted">Thể thao | 1000cc</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text-primary">850.000.000 VND</h5>
+                            <span class="badge bg-success">Còn hàng</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=1" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sản phẩm 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="images/product2.jpg" class="card-img-top" alt="Yamaha R1">
+                    <div class="card-body">
+                        <h5 class="card-title">Yamaha R1</h5>
+                        <p class="card-text text-muted">Thể thao | 998cc</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text-primary">820.000.000 VND</h5>
+                            <span class="badge bg-success">Còn hàng</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=2" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sản phẩm 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="images/product3.jpg" class="card-img-top" alt="Ducati Panigale V4">
+                    <div class="card-body">
+                        <h5 class="card-title">Ducati Panigale V4</h5>
+                        <p class="card-text text-muted">Thể thao | 1103cc</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text-primary">1.250.000.000 VND</h5>
+                            <span class="badge bg-warning">Sắp về</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=3" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="#" class="btn btn-primary">Xem tất cả sản phẩm</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-motorcycle me-2"></i>MotorShop</h5>
+                    <p>Chuyên cung cấp các dòng xe motor cao cấp, chính hãng với giá cả hợp lý nhất.</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Liên kết</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Trang chủ</a></li>
+                        <li><a href="#" class="text-white">Sản phẩm</a></li>
+                        <li><a href="#" class="text-white">Giới thiệu</a></li>
+                        <li><a href="#" class="text-white">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Hỗ trợ</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Câu hỏi thường gặp</a></li>
+                        <li><a href="#" class="text-white">Chính sách bảo hành</a></li>
+                        <li><a href="#" class="text-white">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#" class="text-white">Thanh toán & giao nhận</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone me-2"></i> (028) 1234 5678</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@motorshop.vn</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 MotorShop. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Designed with <i class="fas fa-heart text-danger"></i> by MotorShop Team</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>
