@@ -67,5 +67,430 @@
             "images/Ducati Panigale V4_2.jpg",
             "images/Ducati Panigale V4_3.jpg"
         ]
-    }
+    },
+    {
+        "id": 4,
+        "name": "BWM S1000 R",
+        "price": 950000000,
+        "image": "Images/BWM S1000 R.jpg ",
+        "description": "BWM S10000 R là mâu naked bike hiệu suất cao của BWM Motorrad với thiết kể thể thao động cơ mạnh mẽ",
+        "specs": {
+            "Hãng sản xuất": "BWM",
+            "Dòng xe": "Naked bike",
+            "Dung tích": "999cc",
+            "Công suất": "165 hp @11,000 rpm ",
+            "Mô-men xoắn": "121.0 Nm @ 9,250 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "199 kg",
+            "Bảo hành": "36 tháng"
+        },
+        "images": [
+            "Images/BWM S1000 R 2.jpeg",
+            "Images/BWM S1000 R 3.jpeg",
+            "Images/BWM S1000 R 4.jpg",
+            "Images/BWM S1000 R 5.png"
+
+            
+        ]
+    },
+   
+        {
+            "id": 5,
+            "name": "BMW F 900 XR",
+            "price": 550000000,
+            "image": "Images/BMW F 900 XR 1.jpg",
+            "description": "BMW F 900 XR là mẫu sport touring của BMW với thiết kế linh hoạt, phù hợp cho những chuyến đi đường dài với động cơ mạnh mẽ.",
+            "specs": {
+                "Hãng sản xuất": "BMW",
+                "Dòng xe": "Sport Touring",
+                "Dung tích": "895cc",
+                "Công suất": "105 hp @ 8,500 rpm",
+                "Mô-men xoắn": "92 Nm @ 6,500 rpm",
+                "Hộp số": "6 cấp",
+                "Trọng lượng": "219 kg",
+                "Bảo hành": "36 tháng"
+            },
+            "images": [
+                "Images/BMW F 900 XR 1.jpg",
+                "Images/BMW F 900 XR 2.jpg",
+                "Images/BMW F 900 XR 3.jpg",
+                "Images/BMW F 900 XR 4.jpg"
+            ]
+        },
+        {
+        "id": 6,
+        "name": "BMW R 1250 GS Adventure",
+        "price": 790000000,
+        "image": "Images/BMW R 1250 GS Adventure 1.jpg",
+        "description": "BMW R 1250 GS Adventure là mẫu xe adventure hàng đầu của BMW, nổi bật với khả năng chinh phục mọi địa hình và công nghệ tiên tiến.",
+        "specs": {
+            "Hãng sản xuất": "BMW",
+            "Dòng xe": "Adventure",
+            "Dung tích": "1254cc",
+            "Công suất": "136 hp @ 7,750 rpm",
+            "Mô-men xoắn": "143 Nm @ 6,250 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "268 kg",
+            "Bảo hành": "36 tháng"
+        },
+        "images": [
+            "Images/BMW R 1250 GS Adventure 1.jpg",
+            "Images/BMW R 1250 GS Adventure 2.jpg",
+            "Images/BMW R 1250 GS Adventure 3.jpg",
+            "Images/BMW R 1250 GS Adventure 4.jpg"
+        ]
+         },
+    
+
+
+        {
+        "id": 7,
+        "name": "BMW R 1250 RT",
+        "price": 1099000000,
+        "image": "Images/BMW R 1250 RT.jpg",
+        "description": "BMW R 1250 RT là mẫu touring cao cấp giúp bạn di chuyển đường dài thoải mái với công nghệ hiện đại và khả năng vận hành mạnh mẽ.",
+        "specs": {
+            "Hãng sản xuất": "BMW",
+            "Dòng xe": "Touring",
+            "Dung tích": "1254cc",
+            "Công suất": "136 hp @ 7,750 rpm",
+            "Mô-men xoắn": "143 Nm @ 6,250 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "279 kg",
+            "Bảo hành": "36 tháng"
+        },
+        "images": [
+            "Images/BMW R 1250 RT 1.jpg",
+            "Images/BMW R 1250 RT 2.jpg",
+            "Images/BMW R 1250 RT 3.jpg",
+            "Images/BMW R 1250 RT 4.jpg"
+        ]
+        },
+        {
+        "id": 8,
+        "name": "BMW S 1000 R",
+        "price": 649000000,
+        "image": "Images/BMW S 1000 R.jpg",
+        "description": "BMW S 1000 R là mẫu naked bike mạnh mẽ với thiết kế thể thao, hiệu suất cao và cảm giác lái linh hoạt.",
+        "specs": {
+            "Hãng sản xuất": "BMW",
+            "Dòng xe": "Roadster",
+            "Dung tích": "999cc",
+            "Công suất": "165 hp @ 11,000 rpm",
+            "Mô-men xoắn": "114 Nm @ 9,250 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "199 kg",
+            "Bảo hành": "36 tháng"
+        },
+        "images": [
+            "Images/BMW S 1000 R 1.jpg",
+            "Images/BMW S 1000 R 2.jpg",
+            "Images/BMW S 1000 R 3.jpg",
+            "Images/BMW S 1000 R 4.jpg"
+        ]
+        },
+        {
+        "id": 9,
+        "name": "BMW F 900 R",
+        "price": 459000000,
+        "image": "Images/BMW F 900 R.jpg",
+        "description": "BMW F 900 R là chiếc roadster năng động, mang lại trải nghiệm lái trực quan, hiện đại và đầy cảm xúc.",
+        "specs": {
+            "Hãng sản xuất": "BMW",
+            "Dòng xe": "Roadster",
+            "Dung tích": "895cc",
+            "Công suất": "105 hp @ 8,500 rpm",
+            "Mô-men xoắn": "92 Nm @ 6,500 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "211 kg",
+            "Bảo hành": "36 tháng"
+        },
+        "images": [
+            "Images/BMW F 900 R 1.jpg",
+            "Images/BMW F 900 R 2.jpg",
+            "Images/BMW F 900 R 3.jpg",
+            "Images/BMW F 900 R 4.jpg"
+        ]
+},
+
+        {
+        "id": 10,
+        "name": "BMW R 18 B",
+        "price": 1139000000,
+        "image": "Images/BMW R 18 B.jpg",
+        "description": "BMW R 18 B kết hợp sức mạnh thuần khiết và phong cách Bagger cổ điển, lý tưởng cho những hành trình xa và đầy cảm xúc.",
+        "specs": {
+            "Hãng sản xuất": "BMW",
+            "Dòng xe": "Cruiser",
+            "Dung tích": "1802cc",
+            "Công suất": "91 hp @ 4,750 rpm",
+            "Mô-men xoắn": "158 Nm @ 3,000 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "398 kg",
+            "Bảo hành": "36 tháng"
+        },
+        "images": [
+            "Images/BMW R 18 B 1.jpg",
+            "Images/BMW R 18 B 2.jpg",
+            "Images/BMW R 18 B 3.jpg",
+             "Images/BMW R 18 B 4.jpg"
+            
+        ]
+        },
+        {
+        "id": 11,
+        "name": "BMW R 18 Transcontinental",
+        "price": 1339000000,
+        "image": "Images/BMW R 18 Transcontinental.jpg",
+        "description": "BMW R 18 Transcontinental là mẫu touring biểu tượng với thiết kế sang trọng, mang lại sự thoải mái tối đa trên các cung đường dài.",
+        "specs": {
+            "Hãng sản xuất": "BMW",
+            "Dòng xe": "Touring",
+            "Dung tích": "1802cc",
+            "Công suất": "91 hp @ 4,750 rpm",
+            "Mô-men xoắn": "158 Nm @ 3,000 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "427 kg",
+            "Bảo hành": "36 tháng"
+        },
+        "images": [
+            "Images/BMW R 18 Transcontinental 1.jpg",
+            "Images/BMW R 18 Transcontinental 2.jpg",
+            "Images/BMW R 18 Transcontinental 3.jpg",
+            "Images/BMW R 18 Transcontinental 4.jpg"
+        ]
+        },
+        {
+        "id": 12,
+        "name": "BMW R 18",
+        "price": 829000000,
+        "image": "Images/BMW R 18.jpg",
+        "description": "BMW R 18 là mẫu cruiser mang đậm phong cách hoài cổ, sở hữu động cơ Big Boxer mạnh mẽ và thiết kế tinh tế.",
+        "specs": {
+            "Hãng sản xuất": "BMW",
+            "Dòng xe": "Cruiser",
+            "Dung tích": "1802cc",
+            "Công suất": "91 hp @ 4,750 rpm",
+            "Mô-men xoắn": "158 Nm @ 3,000 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "345 kg",
+            "Bảo hành": "36 tháng"
+        },
+        "images": [
+            "Images/BMW R 18 1.jpg",
+            "Images/BMW R 18 2.jpg",
+            "Images/BMW R 18 3.jpg",
+            "Images/BMW R 18 3.jpg"
+        ]
+        },
+        
+        {
+            "id": 13,
+            "name": "Ninja ZX-10R ABS",
+            "price": 729000000,
+            "image": "Images/Ninja ZX-10R ABS 1.jpg",
+            "description": "Ninja ZX-10R ABS 2025 là siêu mô tô thể thao hàng đầu của Kawasaki, nổi bật với công nghệ tiên tiến từ giải đua WSBK.",
+            "specs": {
+            "Hãng sản xuất": "Kawasaki",
+            "Dòng xe": "Sport bike",
+            "Dung tích": "998cc",
+            "Công suất": "203 hp @ 13,200 rpm",
+            "Mô-men xoắn": "114.9 Nm @ 11,400 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "207 kg",
+            "Bảo hành": "36 tháng"
+            },
+            "images": [
+            "Images/Ninja ZX-10R ABS 1.jpg",
+            "Images/Ninja ZX-10R ABS 2.jpg",
+            "Images/Ninja ZX-10R ABS 3.jpg",
+            "Images/Ninja ZX-10R ABS 4.jpg"
+            ]
+        },
+        {
+            "id": 14,
+            "name": "W800 ABS",
+            "price": 319000000,
+            "image": "Images/W800 ABS 1.jpg",
+            "description": "Kawasaki W800 ABS 2025 là mẫu classic bike với thiết kế hoài cổ và động cơ êm ái, lý tưởng cho người yêu phong cách cổ điển.",
+            "specs": {
+            "Hãng sản xuất": "Kawasaki",
+            "Dòng xe": "Classic",
+            "Dung tích": "773cc",
+            "Công suất": "48 hp @ 6,000 rpm",
+            "Mô-men xoắn": "62.9 Nm @ 4,800 rpm",
+            "Hộp số": "5 cấp",
+            "Trọng lượng": "226 kg",
+            "Bảo hành": "36 tháng"
+            },
+            "images": [
+            "Images/W800 ABS 1.jpg",
+            "Images/W800 ABS 2.jpg",
+            "Images/W800 ABS 2.jpg",
+            "Images/W800 ABS 2.jpg"
+            ]
+        },
+        {
+            "id": 15,
+            "name": "Ninja ZX-4R",
+            "price": 399000000,
+            "image": "Images/Ninja ZX-4R 1.jpg",
+            "description": "Ninja ZX-4R 2024 là mẫu sportbike phân khối nhỏ mạnh mẽ, nổi bật trong phân khúc với động cơ 4 xi-lanh và thiết kế sắc nét.",
+            "specs": {
+            "Hãng sản xuất": "Kawasaki",
+            "Dòng xe": "Sport bike",
+            "Dung tích": "399cc",
+            "Công suất": "76.4 hp @ 14,500 rpm",
+            "Mô-men xoắn": "37.6 Nm @ 12,500 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "188 kg",
+            "Bảo hành": "36 tháng"
+            },
+            "images": [
+            "Images/Ninja ZX-4R 1.jpg",
+            "Images/Ninja ZX-4R 2.jpg",
+            "Images/Ninja ZX-4R 2.jpg",
+            "Images/Ninja ZX-4R 2.jpg"
+            ]
+        },
+        {
+            "id": 16,
+            "name": "Royal Enfield Interceptor",
+            "price": 210000000,
+            "image": "Images/Interceptor.jpg",
+            "description": "Royal Enfield Interceptor mang phong cách cổ điển pha trộn hiện đại, động cơ đôi xi-lanh song song mạnh mẽ.",
+            "specs": {
+            "Hãng sản xuất": "Royal Enfield",
+            "Dòng xe": "Classic Retro",
+            "Dung tích": "648cc",
+            "Công suất": "47 hp @ 7,150 rpm",
+            "Mô-men xoắn": "52 Nm @ 5,250 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "202 kg",
+            "Bảo hành": "24 tháng"
+            },
+            "images": [
+            
+            "Images/Interceptor 1.jpg",
+            "Images/Interceptor 2.jpg",
+            "Images/Interceptor 3.jpg",
+            "Images/Interceptor 4.jpg"
+            ]
+        },
+        {
+            "id": 17,
+            "name": "Royal Enfield Continental GT",
+            "price": 220000000,
+            "image": "Images/Continental_GT.jpg",
+            "description": "Continental GT là chiếc café racer hiện đại, thiết kế đậm chất thể thao cổ điển và hiệu năng ấn tượng.",
+            "specs": {
+            "Hãng sản xuất": "Royal Enfield",
+            "Dòng xe": "Café Racer",
+            "Dung tích": "648cc",
+            "Công suất": "47 hp @ 7,150 rpm",
+            "Mô-men xoắn": "52 Nm @ 5,250 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "198 kg",
+            "Bảo hành": "24 tháng"
+            },
+            "images": [
+            "Images/Continental GT 1.jpg",
+            "Images/Continental GT 2.jpg",
+            "Images/Continental GT 3.jpg",
+            "Images/Continental GT 4.jpg"
+            ]
+        },
+        {
+            "id": 18,
+            "name": "Royal Enfield Himalayan",
+            "price": 185000000,
+            "image": "Images/Himalayan.jpg",
+            "description": "Royal Enfield Himalayan là mẫu adventure đa địa hình, thiết kế bền bỉ và phù hợp với mọi cung đường.",
+            "specs": {
+            "Hãng sản xuất": "Royal Enfield",
+            "Dòng xe": "Adventure Touring",
+            "Dung tích": "411cc",
+            "Công suất": "24.3 hp @ 6,500 rpm",
+            "Mô-men xoắn": "32 Nm @ 4,500 rpm",
+            "Hộp số": "5 cấp",
+            "Trọng lượng": "199 kg",
+            "Bảo hành": "24 tháng"
+            },
+            "images": [
+            "Images/Himalayan 1.jpg",
+            "Images/Himalayan 2.jpg",
+            "Images/Himalayan 3.jpg",
+            "Images/Himalayan 4.jpg"
+            ]
+        },
+        
+        {
+            "id": 19,
+            "name": "Harley-Davidson Road King Special",
+            "price": 899000000,
+            "image": "Images/Harley Road King Special.jpg",
+            "description": "Harley-Davidson Road King Special sở hữu kiểu dáng bagger cơ bắp, động cơ Milwaukee-Eight mạnh mẽ cùng thiết kế đậm chất Mỹ cổ điển.",
+            "specs": {
+            "Hãng sản xuất": "Harley-Davidson",
+            "Dòng xe": "Bagger / Touring",
+            "Dung tích": "1868cc",
+            "Công suất": "95 hp @ 5020 rpm",
+            "Mô-men xoắn": "158 Nm @ 3250 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "375 kg",
+            "Bảo hành": "24 tháng"
+            },
+            "images": [
+            "Images/Harley Road King Special 1.jpg",
+            "Images/Harley Road King Special 2.jpg",
+            "Images/Harley Road King Special 3.jpg"
+            ]
+        },
+        {
+            "id": 20,
+            "name": "Harley-Davidson Street Glide",
+            "price": 979000000,
+            "image": "Images/Harley Street Glide.jpg",
+            "description": "Street Glide là mẫu touring cổ điển kết hợp thiết kế yếm chắn gió Batwing mang tính biểu tượng và công nghệ hiện đại, lý tưởng cho hành trình xa.",
+            "specs": {
+            "Hãng sản xuất": "Harley-Davidson",
+            "Dòng xe": "Touring",
+            "Dung tích": "1868cc",
+            "Công suất": "93 hp @ 5250 rpm",
+            "Mô-men xoắn": "158 Nm @ 3250 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "375 kg",
+            "Bảo hành": "24 tháng"
+            },
+            "images": [
+            "Images/Harley Street Glide 1.jpg",
+            "Images/Harley Street Glide 2.jpg",
+            "Images/Harley Street Glide 3.jpg"
+            ]
+        },
+        {
+            "id": 21,
+            "name": "Harley-Davidson Road Glide",
+            "price": 999000000,
+            "image": "Images/Harley Road Glide.jpg",
+            "description": "Road Glide nổi bật với thiết kế yếm chắn gió cố định (shark nose fairing), mang lại sự ổn định ở tốc độ cao và trải nghiệm touring tuyệt vời.",
+            "specs": {
+            "Hãng sản xuất": "Harley-Davidson",
+            "Dòng xe": "Touring",
+            "Dung tích": "1868cc",
+            "Công suất": "93 hp @ 5250 rpm",
+            "Mô-men xoắn": "158 Nm @ 3250 rpm",
+            "Hộp số": "6 cấp",
+            "Trọng lượng": "387 kg",
+            "Bảo hành": "24 tháng"
+            },
+            "images": [
+            "Images/Harley Road Glide 1.jpg",
+            "Images/Harley Road Glide 2.jpg",
+            "Images/Harley Road Glide 3.jpg"
+            ]
+        }
+
+
+
 ]
