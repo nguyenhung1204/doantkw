@@ -349,20 +349,49 @@
         </div>
     </div>
 
-    <!-- Bootstrap 5 JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="js/admin.js"></script>
-    <!-- <script src="js/cart.js"></script> -->
+    <!-- Các modal và toast đặt ở đây -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDetailModalLabel">Chi tiết đơn hàng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Mã đơn hàng:</strong> <span id="detail-order-id"></span></p>
+                    <p><strong>Ngày đặt:</strong> <span id="detail-order-date"></span></p>
+                    
+                    <h6>Thông tin khách hàng:</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Họ và tên:</strong> <span id="detail-customer-name"></span></li>
+                        <li><strong>Số điện thoại:</strong> <span id="detail-customer-phone"></span></li>
+                        <li><strong>Địa chỉ:</strong> <span id="detail-customer-address"></span></li>
+                        <li><strong>Ghi chú:</strong> <span id="detail-order-notes"></span></li>
+                    </ul>
+                    
+                    <p><strong>Tổng tiền:</strong> <span id="detail-total-amount"></span></p>
+                    <p><strong>Trạng thái:</strong> <span id="detail-order-status"></span></p>
+                    
+                    <h6>Sản phẩm trong đơn hàng:</h6>
+                    <ul class="list-group" id="detail-order-items">
+                        </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="customerDetailsModal" tabindex="-1" aria-labelledby="customerDetailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="customerDetailsModalLabel">Thông tin khách hàng</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Họ và tên:</strong> <span id="modalCustomerName"></span></p>
+                    <p><strong>Tên khách hàng:</strong> <span id="modalCustomerName"></span></p>
                     <p><strong>Số điện thoại:</strong> <span id="modalCustomerPhone"></span></p>
                     <p><strong>Địa chỉ:</strong> <span id="modalCustomerAddress"></span></p>
                     <p><strong>Ghi chú:</strong> <span id="modalOrderNotes"></span></p>
@@ -373,15 +402,21 @@
             </div>
         </div>
     </div>
+
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto" id="toastHeader">Thông báo</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body" id="toastBody">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto" id="toastHeader">Thông báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
+            <div class="toast-body" id="toastBody">
+                </div>
+        </div>
     </div>
-</div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/admin.js"></script>
 </body>     
 </html>

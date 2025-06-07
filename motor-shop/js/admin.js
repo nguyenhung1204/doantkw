@@ -1,3 +1,6 @@
+let orderDetailModalInstance;
+let customerDetailsModalInstance;
+
 // Xử lý sidebar toggle
 document.addEventListener('DOMContentLoaded', function() {
     const sidebarToggle = document.getElementById('sidebarToggle');
@@ -16,6 +19,22 @@ document.addEventListener('DOMContentLoaded', function() {
     setupOrderTabEvents();// 
     updateNotificationDropdown();//
     renderDynamicOrdersToTable(); // 
+    orderDetailModalInstance = new bootstrap.Modal(document.getElementById('orderDetailModal'));
+    customerDetailsModalInstance = new bootstrap.Modal(document.getElementById('customerDetailsModal'));
+
+    document.getElementById('orderDetailModal').addEventListener('hidden.bs.modal', function () {
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(backdrop => backdrop.remove());
+    });
+
+    document.getElementById('customerDetailsModal').addEventListener('hidden.bs.modal', function () {
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(backdrop => backdrop.remove());
+    });
 });
 
 // Khởi tạo biểu đồ với Chart.js
@@ -180,7 +199,11 @@ function attachCustomerDetailsEvents() {
 
 // Hàm render đơn hàng động vào bảng (ĐÃ ĐIỀU CHỈNH ĐỂ DÙNG getAllOrdersFromLocalStorage)
 function renderDynamicOrdersToTable() {
-    const ordersTableBody = document.getElementById('ordersTableBody');
+    const ordersTableBody = document.getElementById('dynamic-orders-body'); // Đổi từ ordersTableBody thành dynamic-orders-body
+    if (!ordersTableBody) { // Thêm kiểm tra này
+        console.warn('Không tìm thấy tbody của bảng đơn hàng động. Hãy đảm bảo nó có id="dynamic-orders-body" trong admin.html');
+        return;
+    }
     ordersTableBody.innerHTML = ''; // Clear existing rows
 
     let orders = JSON.parse(localStorage.getItem('orders')) || [];
@@ -198,20 +221,20 @@ function renderDynamicOrdersToTable() {
             row.classList.add('table-warning');
         }
 
-        // Lấy thông tin khách hàng, kiểm tra nếu có tồn tại
-        const customerName = order.customerInfo ? order.customerInfo.name : 'N/A';
-        const customerPhone = order.customerInfo ? order.customerInfo.phone : 'N/A';
-        const customerAddress = order.customerInfo ? order.customerInfo.address : 'N/A';
-        const orderNotes = order.customerInfo ? order.customerInfo.notes : '';
+        // Lấy thông tin khách hàng, ưu tiên order.customerDetails
+        const customerName = order.customerDetails ? order.customerDetails.name : (order.customer || 'N/A');
+        const customerPhone = order.customerDetails ? order.customerDetails.phone : 'N/A';
+        const customerAddress = order.customerDetails ? order.customerDetails.address : 'N/A';
+        const orderNotes = order.customerDetails ? order.customerDetails.notes : '';
 
         row.innerHTML = `
             <td>${order.id}</td>
-            <td>${order.date}</td>
             <td>
                 <strong>${customerName}</strong><br>
                 <small>${customerPhone}</small><br>
                 <button class="btn btn-link btn-sm p-0 text-decoration-none view-customer-details"
-                        data-bs-toggle="modal" data-bs-target="#customerDetailsModal"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#customerDetailsModal"
                         data-name="${customerName}"
                         data-phone="${customerPhone}"
                         data-address="${customerAddress}"
@@ -219,6 +242,7 @@ function renderDynamicOrdersToTable() {
                     Xem chi tiết
                 </button>
             </td>
+            <td>${order.date}</td>
             <td>${order.total.toLocaleString('vi-VN')} VNĐ</td>
             <td><span class="badge bg-secondary">${order.status}</span></td>
             <td>
@@ -228,9 +252,8 @@ function renderDynamicOrdersToTable() {
         `;
         ordersTableBody.appendChild(row);
     });
-
     attachOrderTableEvents(); // Attach events after rendering
-    attachCustomerDetailsEvents(); // Thêm hàm mới để gắn sự kiện cho nút "Xem chi tiết"
+    attachCustomerDetailsEvents(); // Gắn sự kiện cho nút "Xem chi tiết" của khách hàng
 }
 
 // Hàm để gắn sự kiện cho việc kích hoạt tab "Đơn hàng" (ĐÃ ĐIỀU CHỈNH ĐỂ GỌI renderDynamicOrdersToTable)
@@ -265,32 +288,70 @@ function attachOrderTableEvents() {
 // Xử lý xem chi tiết đơn hàng (có thể mở modal hoặc trang mới)
 function viewOrderDetails(orderId) {
     let orders = JSON.parse(localStorage.getItem('orders')) || [];
-    const order = orders.find(o => o.id === orderId);
+    const order = orders.find(o => String(o.id) === String(orderId));
 
     if (order) {
-        let details = `
-            <p><strong>ID Đơn hàng:</strong> ${order.id}</p>
-            <p><strong>Ngày đặt:</strong> ${order.date}</p>
-            <p><strong>Thông tin khách hàng:</strong></p>
-            <ul>
-                <li>Họ và tên: ${order.customerInfo ? order.customerInfo.name : 'N/A'}</li>
-                <li>Số điện thoại: ${order.customerInfo ? order.customerInfo.phone : 'N/A'}</li>
-                <li>Địa chỉ: ${order.customerInfo ? order.customerInfo.address : 'N/A'}</li>
-                <li>Ghi chú: ${order.customerInfo ? (order.customerInfo.notes || 'Không có') : 'Không có'}</li>
-            </ul>
-            <p><strong>Tổng tiền:</strong> ${order.total.toLocaleString('vi-VN')} VNĐ</p>
-            <p><strong>Trạng thái:</strong> ${order.status}</p>
-            <h5>Sản phẩm:</h5>
-            <ul>
-        `;
-        order.items.forEach(item => {
-            details += `<li>${item.name} (x${item.quantity}) - ${item.price.toLocaleString('vi-VN')} VNĐ/sp</li>`;
-        });
-        details += `</ul>`;
-        showAlert(`Chi tiết đơn hàng ${orderId}:\n\n${details}`, 'info'); // Dùng alert tạm, nên dùng modal
-        console.log('Chi tiết đơn hàng:', order);
+        // Hiển thị thông tin khách hàng đúng chuẩn
+        document.getElementById('modalCustomerName').textContent = order.customerInfo && order.customerInfo.name ? order.customerInfo.name : '';
+        document.getElementById('modalCustomerPhone').textContent = order.customerInfo && order.customerInfo.phone ? order.customerInfo.phone : '';
+        document.getElementById('modalCustomerAddress').textContent = order.customerInfo && order.customerInfo.address ? order.customerInfo.address : '';
+        document.getElementById('modalOrderNotes').textContent = order.customerInfo && order.customerInfo.notes ? order.customerInfo.notes : '';
+
+        // Cập nhật thông tin đơn hàng chung
+        document.getElementById('detail-order-id').textContent = order.id;
+        document.getElementById('detail-order-date').textContent = order.date;
+        document.getElementById('detail-total-amount').textContent = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.total);
+        document.getElementById('detail-order-status').textContent = order.status;
+
+        // Ưu tiên lấy từ customerDetails, nếu không có thì fallback về customer
+        const customerNameElement = document.getElementById('detail-customer-name');
+        const customerPhoneElement = document.getElementById('detail-customer-phone');
+        const customerAddressElement = document.getElementById('detail-customer-address');
+        const orderNotesElement = document.getElementById('detail-order-notes');
+
+        if (order.customerDetails) {
+            customerNameElement.textContent = order.customerDetails.name || 'N/A';
+            customerPhoneElement.textContent = order.customerDetails.phone || 'Chưa cập nhật';
+            customerAddressElement.textContent = order.customerDetails.address || 'Chưa cập nhật';
+            orderNotesElement.innerHTML = order.customerDetails.notes || 'Không có ghi chú.'; 
+        } else {
+            // Trường hợp đơn hàng cũ không có customerDetails hoặc là 'Khách hàng ẩn danh'
+            customerNameElement.textContent = order.customer || 'N/A'; 
+            customerPhoneElement.textContent = 'Chưa cập nhật';
+            customerAddressElement.textContent = 'Chưa cập nhật';
+            orderNotesElement.innerHTML = 'Không có ghi chú.';
+        }
+
+        // Cập nhật danh sách sản phẩm
+        const orderItemsList = document.getElementById('detail-order-items');
+        orderItemsList.innerHTML = ''; // Xóa các mục cũ
+
+        if (order.items && order.items.length > 0) {
+            order.items.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+                listItem.innerHTML = `
+                    ${item.name} (x${item.quantity})
+                    <span class="badge bg-primary rounded-pill">${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price * item.quantity)}</span>
+                `;
+                orderItemsList.appendChild(listItem);
+            });
+        } else {
+            const noItemsLi = document.createElement('li');
+            noItemsLi.classList.add('list-group-item', 'text-muted');
+            noItemsLi.textContent = 'Không có sản phẩm nào trong đơn hàng này.';
+            orderItemsList.appendChild(noItemsLi);
+        }
+
+        // Hiển thị modal bằng đối tượng đã được khởi tạo
+        if (orderDetailModalInstance) {
+            orderDetailModalInstance.show();
+        } else {
+            console.error('orderDetailModalInstance chưa được khởi tạo.');
+        }
     } else {
-        showAlert('Không tìm thấy đơn hàng này.', 'danger');
+        console.error(`Không tìm thấy đơn hàng với ID: ${orderId}`);
+        showAlert('Không tìm thấy chi tiết đơn hàng này.', 'danger');
     }
 }
 
@@ -351,33 +412,29 @@ function showAlert(message, type) {
 }
 
 // --- NEW FUNCTION: Update Notification Dropdown with New Orders ---
+
 function updateNotificationDropdown() {
     console.log('Bắt đầu updateNotificationDropdown...');
-    // notificationDropdownMenu giờ là thẻ UL có ID 'notification'
     const notificationDropdownMenu = document.getElementById('notification'); 
     const notificationBadge = document.querySelector('#notificationDropdown .badge');
     
-    // Tinh chỉnh cách lấy notificationHeaderLi: Lấy trực tiếp thẻ h6
     const notificationHeaderH6 = notificationDropdownMenu ? notificationDropdownMenu.querySelector('li .dropdown-header') : null;
     let insertionPoint = null;
 
-    // Debug: Kiểm tra xem các phần tử có được tìm thấy không
     console.log('notificationDropdownMenu (UL with ID notification):', notificationDropdownMenu);
     console.log('notificationBadge:', notificationBadge);
-    console.log('notificationHeaderH6 (h6 header):', notificationHeaderH6); // Log the h6 directly
+    console.log('notificationHeaderH6 (h6 header):', notificationHeaderH6); 
 
     if (!notificationDropdownMenu) {
         console.warn('Không tìm thấy menu dropdown thông báo với ID "notification". Dừng cập nhật.');
         return;
     }
 
-    // Đặt điểm chèn là thẻ LI chứa header thông báo
     if (notificationHeaderH6) {
-        insertionPoint = notificationHeaderH6.closest('li'); // Get the parent LI of the h6
+        insertionPoint = notificationHeaderH6.closest('li'); 
         console.log('Insertion point (LI của Thông báo):', insertionPoint);
     } else {
         console.warn('Không tìm thấy header thông báo trong menu dropdown. Sẽ cố gắng thêm vào đầu menu.');
-        // Fallback: Chèn sau phần tử LI đầu tiên nếu header không tìm thấy
         insertionPoint = notificationDropdownMenu.querySelector('li:first-child');
         if (insertionPoint) {
             console.log('Fallback insertion point (first LI):', insertionPoint);
@@ -387,14 +444,12 @@ function updateNotificationDropdown() {
         }
     }
 
-    // Xóa các thông báo đơn hàng động cũ để tránh trùng lặp
     notificationDropdownMenu.querySelectorAll('.dynamic-notification-item').forEach(item => item.remove());
     console.log('Đã xóa các thông báo động cũ.');
 
     let orders = getAllOrdersFromLocalStorage(); 
     console.log('Tổng số đơn hàng từ localStorage:', orders.length, orders);
 
-    // Lọc ra các đơn hàng có trạng thái "Chờ xử lý"
     const newOrders = orders.filter(order => order.status === 'Chờ xử lý');
     console.log('Số lượng đơn hàng "Chờ xử lý" sau khi lọc:', newOrders.length, newOrders);
 
@@ -409,7 +464,6 @@ function updateNotificationDropdown() {
         return;
     }
 
-    // Sắp xếp đơn hàng theo ngày, mới nhất lên trước
     newOrders.sort((a, b) => {
         const [dayA, monthA, yearA] = a.date.split('/');
         const [dayB, monthB, yearB] = b.date.split('/');
@@ -432,11 +486,11 @@ function updateNotificationDropdown() {
         link.setAttribute('aria-controls', 'orders-tab-pane');
         link.setAttribute('aria-selected', 'false'); 
         
-        // Cố gắng hiển thị ID đơn hàng ngắn hơn (nếu có tiền tố ORD-)
         const displayOrderId = order.id.startsWith('ORD-') ? order.id.split('-')[1] : order.id;
-        link.innerHTML = `Đơn hàng mới #${displayOrderId} - ${order.customer} (${order.status})`; 
+        // Thay đổi ở đây: ưu tiên customerDetails.name, nếu không có thì dùng customer
+        const customerDisplayName = order.customerDetails ? order.customerDetails.name : order.customer;
+        link.innerHTML = `Đơn hàng mới #${displayOrderId} - ${customerDisplayName} (${order.status})`; 
 
-        // Thêm event listener để khi click vào thông báo, tab Đơn hàng sẽ được kích hoạt
         link.addEventListener('click', function(e) {
             e.preventDefault(); 
             const ordersTab = document.getElementById('order');
@@ -449,20 +503,17 @@ function updateNotificationDropdown() {
 
         listItem.appendChild(link);
         
-        // Chèn thông báo mới ngay sau header
         if (insertionPoint) {
             insertionPoint.after(listItem);
-            insertionPoint = listItem; // Cập nhật điểm chèn cho thông báo tiếp theo
+            insertionPoint = listItem; 
             console.log(`Đã chèn thông báo cho đơn hàng ${order.id}`);
         } else {
-            // Trường hợp fallback: chèn vào cuối menu nếu không tìm thấy điểm chèn cụ thể
             notificationDropdownMenu.appendChild(listItem); 
             console.log(`Fallback: Đã chèn thông báo cho đơn hàng ${order.id} vào cuối menu.`);
         }
         newNotificationCount++;
     });
 
-    // Cập nhật badge số lượng thông báo
     if (notificationBadge) {
         if (newNotificationCount > 0) {
             notificationBadge.textContent = newNotificationCount;
