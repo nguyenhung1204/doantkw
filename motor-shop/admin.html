@@ -109,48 +109,51 @@
                 <i class="fas fa-motorcycle me-2"></i>MotorShop
             </h4>
             
-            <ul class="list-unstyled">
-                <li>
-                    <a href="#" class="sidebar-link active">
+            <!-- Links điều hướng tab -->
+            <ul class="nav flex-column mb-auto">
+                <li class="nav-item">
+                    <!-- Liên kết cho Dashboard -->
+                    <a href="#dashboard-tab-pane" class="nav-link sidebar-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard-tab-pane" role="tab" aria-controls="dashboard-tab-pane" aria-selected="true">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="sidebar-link">
-                        <i class="fas fa-motorcycle"></i> Sản phẩm
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="sidebar-link">
+                <li class="nav-item">
+                    <!-- Liên kết cho Đơn hàng - ĐÃ THÊM ID "order" VÀ data-bs-target -->
+                    <a href="#orders-tab-pane" class="nav-link sidebar-link" id="order" data-bs-toggle="tab" data-bs-target="#orders-tab-pane" role="tab" aria-controls="orders-tab-pane" aria-selected="false">
                         <i class="fas fa-shopping-cart"></i> Đơn hàng
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="sidebar-link">
+                <li class="nav-item">
+                    <!-- Ví dụ cho các tab khác, bạn có thể thêm tương tự -->
+                    <a href="#products-tab-pane" class="nav-link sidebar-link" id="products-tab" data-bs-toggle="tab" data-bs-target="#products-tab-pane" role="tab" aria-controls="products-tab-pane" aria-selected="false">
+                        <i class="fas fa-motorcycle"></i> Sản phẩm
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#customers-tab-pane" class="nav-link sidebar-link" id="customers-tab" data-bs-toggle="tab" data-bs-target="#customers-tab-pane" role="tab" aria-controls="customers-tab-pane" aria-selected="false">
                         <i class="fas fa-users"></i> Khách hàng
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="sidebar-link">
+                <li class="nav-item">
+                    <a href="#promotions-tab-pane" class="nav-link sidebar-link" id="promotions-tab" data-bs-toggle="tab" data-bs-target="#promotions-tab-pane" role="tab" aria-controls="promotions-tab-pane" aria-selected="false">
                         <i class="fas fa-tags"></i> Khuyến mãi
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="sidebar-link">
+                <li class="nav-item">
+                    <a href="#posts-tab-pane" class="nav-link sidebar-link" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts-tab-pane" role="tab" aria-controls="posts-tab-pane" aria-selected="false">
                         <i class="fas fa-newspaper"></i> Bài viết
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="sidebar-link">
+                <li class="nav-item">
+                    <a href="#settings-tab-pane" class="nav-link sidebar-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings-tab-pane" role="tab" aria-controls="settings-tab-pane" aria-selected="false">
                         <i class="fas fa-cog"></i> Cài đặt
                     </a>
                 </li>
             </ul>
         </div>
     </div>
-
     <!-- Main Content -->
-    <div id="main-content">
+<div id="main-content">
         <!-- Top Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -164,11 +167,8 @@
                             <i class="fas fa-bell"></i>
                             <span class="badge bg-danger">3</span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><h6 class="dropdown-header">Thông báo</h6></li>
-                            <li><a class="dropdown-item" href="#">Đơn hàng mới #1234</a></li>
-                            <li><a class="dropdown-item" href="#">Đơn hàng #5678 đã thanh toán</a></li>
-                            <li><a class="dropdown-item" href="#">5 đánh giá mới</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end" id="notification">
+                            <li><h6 class="dropdown-header" >Thông báo</h6></li>
                         </ul>
                     </div>
                     
@@ -188,133 +188,149 @@
             </div>
         </nav>
 
-        <!-- Page Content -->
+        <!-- Page Content: Bây giờ nằm trong tab-content -->
         <div class="container-fluid p-4">
-            <h2 class="mb-4">Dashboard</h2>
-            
-            <!-- Thống kê nhanh -->
-            <div class="row mb-4">
-                <div class="col-md-3">
-                    <div class="stat-card bg-primary">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <div class="number">1.245</div>
-                                <div class="label">Đơn hàng</div>
+            <!-- Đã thêm class "tab-content" và ID -->
+            <div class="tab-content" id="adminContentTabs">
+                
+                <!-- Tab Dashboard - Mặc định active -->
+                <div class="tab-pane fade show active" id="dashboard-tab-pane" role="tabpanel" aria-labelledby="dashboard-tab" tabindex="0">
+                    <h2 class="mb-4">Dashboard</h2>
+                    
+                    <!-- Thống kê nhanh -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="stat-card bg-primary">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="number">1.245</div>
+                                        <div class="label">Đơn hàng</div>
+                                    </div>
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
                             </div>
-                            <i class="fas fa-shopping-cart"></i>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card bg-success">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <div class="number">845.000.000</div>
-                                <div class="label">Doanh thu</div>
+                        <div class="col-md-3">
+                            <div class="stat-card bg-success">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="number">845.000.000</div>
+                                        <div class="label">Doanh thu</div>
+                                    </div>
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
                             </div>
-                            <i class="fas fa-dollar-sign"></i>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card bg-warning">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <div class="number">324</div>
-                                <div class="label">Khách hàng</div>
+                        <div class="col-md-3">
+                            <div class="stat-card bg-warning">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="number">324</div>
+                                        <div class="label">Khách hàng</div>
+                                    </div>
+                                    <i class="fas fa-users"></i>
+                                </div>
                             </div>
-                            <i class="fas fa-users"></i>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card bg-info">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <div class="number">45</div>
-                                <div class="label">Sản phẩm</div>
+                        <div class="col-md-3">
+                            <div class="stat-card bg-info">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="number">45</div>
+                                        <div class="label">Sản phẩm</div>
+                                    </div>
+                                    <i class="fas fa-motorcycle"></i>
+                                </div>
                             </div>
-                            <i class="fas fa-motorcycle"></i>
                         </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Biểu đồ -->
-            <div class="row mb-4">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Doanh thu 7 ngày gần đây</h5>
-                            <canvas id="revenueChart" height="300"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Loại xe bán chạy</h5>
-                            <canvas id="productChart" height="300"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Đơn hàng mới -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="card-title mb-0">Đơn hàng mới</h5>
-                        <a href="#" class="btn btn-sm btn-outline-primary">Xem tất cả</a>
                     </div>
                     
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Mã đơn</th>
-                                    <th>Khách hàng</th>
-                                    <th>Ngày đặt</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Trạng thái</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#1234</td>
-                                    <td>Nguyễn Văn A</td>
-                                    <td>12/06/2023</td>
-                                    <td>850.000.000 VND</td>
-                                    <td><span class="badge bg-warning">Chờ xử lý</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-outline-primary">Xem</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#1233</td>
-                                    <td>Trần Thị B</td>
-                                    <td>11/06/2023</td>
-                                    <td>1.250.000.000 VND</td>
-                                    <td><span class="badge bg-info">Đang giao</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-outline-primary">Xem</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#1232</td>
-                                    <td>Lê Văn C</td>
-                                    <td>10/06/2023</td>
-                                    <td>820.000.000 VND</td>
-                                    <td><span class="badge bg-success">Hoàn thành</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-outline-primary">Xem</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!-- Biểu đồ -->
+                    <div class="row mb-4">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Doanh thu 7 ngày gần đây</h5>
+                                    <canvas id="revenueChart" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Loại xe bán chạy</h5>
+                                    <canvas id="productChart" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Tab Đơn hàng mới -->
+                <div class="tab-pane fade" id="orders-tab-pane" role="tabpanel" aria-labelledby="order" tabindex="0">
+                    <h2 class="mb-4">Đơn hàng</h2> <!-- Tiêu đề cho tab đơn hàng -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">Danh sách đơn hàng</h5>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Xem tất cả</a>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                            <tr>
+                                                <th scope="col">ID Đơn hàng</th>
+                                                <th scope="col">Ngày đặt</th>
+                                                <th scope="col">Thông tin khách hàng</th> <th scope="col">Tổng tiền</th>
+                                                <th scope="col">Trạng thái</th>
+                                                <th scope="col">Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ordersTableBody">
+                                            <tr>
+                                                <td colspan="6" class="text-center text-muted">Chưa có đơn hàng nào.</td> </tr>
+                                        </tbody>                                    
+                                        <!-- tbody mới cho DỮ LIỆU ĐỘNG từ localStorage -->
+                                    <tbody id="dynamic-orders-body">
+                                        <!-- Dữ liệu đơn hàng từ JavaScript sẽ được điền vào đây -->
+                                    </tbody>                                
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Sản phẩm - Ví dụ, bạn có thể thêm nội dung tương ứng -->
+                <div class="tab-pane fade" id="products-tab-pane" role="tabpanel" aria-labelledby="products-tab" tabindex="0">
+                    <h2 class="mb-4">Quản lý Sản phẩm</h2>
+                    <p>Nội dung quản lý sản phẩm sẽ được hiển thị ở đây.</p>
+                </div>
+                
+                <!-- Tab Khách hàng - Ví dụ -->
+                <div class="tab-pane fade" id="customers-tab-pane" role="tabpanel" aria-labelledby="customers-tab" tabindex="0">
+                    <h2 class="mb-4">Quản lý Khách hàng</h2>
+                    <p>Nội dung quản lý khách hàng sẽ được hiển thị ở đây.</p>
+                </div>
+
+                <!-- Tab Khuyến mãi - Ví dụ -->
+                <div class="tab-pane fade" id="promotions-tab-pane" role="tabpanel" aria-labelledby="promotions-tab" tabindex="0">
+                    <h2 class="mb-4">Quản lý Khuyến mãi</h2>
+                    <p>Nội dung quản lý khuyến mãi sẽ được hiển thị ở đây.</p>
+                </div>
+
+                <!-- Tab Bài viết - Ví dụ -->
+                <div class="tab-pane fade" id="posts-tab-pane" role="tabpanel" aria-labelledby="posts-tab" tabindex="0">
+                    <h2 class="mb-4">Quản lý Bài viết</h2>
+                    <p>Nội dung quản lý bài viết sẽ được hiển thị ở đây.</p>
+                </div>
+
+                <!-- Tab Cài đặt - Ví dụ -->
+                <div class="tab-pane fade" id="settings-tab-pane" role="tabpanel" aria-labelledby="settings-tab" tabindex="0">
+                    <h2 class="mb-4">Cài đặt hệ thống</h2>
+                    <p>Nội dung cài đặt sẽ được hiển thị ở đây.</p>
+                </div>
+
             </div>
         </div>
     </div>
@@ -323,5 +339,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="js/admin.js"></script>
-</body>
+    <!-- <script src="js/cart.js"></script> -->
+    <div class="modal fade" id="customerDetailsModal" tabindex="-1" aria-labelledby="customerDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="customerDetailsModalLabel">Thông tin khách hàng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Họ và tên:</strong> <span id="modalCustomerName"></span></p>
+                    <p><strong>Số điện thoại:</strong> <span id="modalCustomerPhone"></span></p>
+                    <p><strong>Địa chỉ:</strong> <span id="modalCustomerAddress"></span></p>
+                    <p><strong>Ghi chú:</strong> <span id="modalOrderNotes"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto" id="toastHeader">Thông báo</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toastBody">
+            </div>
+    </div>
+</div>
+</body>     
 </html>

@@ -24,10 +24,50 @@
     </style>
 </head>
 <body>
-    <!-- Header (giống index.html) -->
+    <!-- Header -->
     <header class="bg-dark py-3">
-        <!-- ... cùng nội dung như index.html ... -->
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand fw-bold" href="index.html">
+                        <i class="fas fa-motorcycle me-2"></i>MotorShop
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="index.html">Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sản phẩm</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Liên hệ</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex">
+                            <form class="d-flex me-2">
+                                <input class="form-control me-2" type="search" placeholder="Tìm kiếm...">
+                                <button class="btn btn-outline-light" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                            <a href="cart.html" class="btn btn-outline-light me-2">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span id="cart-count" class="badge bg-danger">0</span>
+                            </a>
+                            <a href="login.html" class="btn btn-primary">
+                                <i class="fas fa-user"></i> Đăng nhập
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
+
 
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="bg-light py-3">
@@ -68,20 +108,34 @@
                         </div>
                     </div>
                     
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Mã giảm giá</h5>
-                            <form class="row g-3">
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" placeholder="Nhập mã giảm giá">
-                                </div>
-                                <div class="col-md-4">
-                                    <button type="submit" class="btn btn-outline-primary w-100">Áp dụng</button>
-                                </div>
-                            </form>
-                        </div>
+                <div class="col-lg-12 mb-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Thông tin cá nhân</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="customer-info-form">
+                            <div class="mb-3">
+                                <label for="customerName" class="form-label">Họ và tên <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="customerName" placeholder="Nhập họ và tên của bạn" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="customerPhone" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="customerPhone" placeholder="Nhập số điện thoại" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="customerAddress" class="form-label">Địa chỉ <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="customerAddress" placeholder="Nhập địa chỉ nhận hàng" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="orderNotes" class="form-label">Ghi chú đơn hàng (Tùy chọn)</label>
+                                <textarea class="form-control" id="orderNotes" rows="3" placeholder="Ghi chú thêm về đơn hàng của bạn"></textarea>
+                            </div>
+                        </form>
                     </div>
                 </div>
+            </div>                
+        </div>
                 
                 <!-- Tổng kết đơn hàng -->
                 <div class="col-lg-4">
@@ -143,9 +197,57 @@
         </div>
     </section>
 
-    <!-- Footer (giống index.html) -->
+    <!-- Footer -->
     <footer class="bg-dark text-white py-5">
-        <!-- ... cùng nội dung như index.html ... -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-motorcycle me-2"></i>MotorShop</h5>
+                    <p>Chuyên cung cấp các dòng xe motor cao cấp, chính hãng với giá cả hợp lý nhất.</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Liên kết</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Trang chủ</a></li>
+                        <li><a href="#" class="text-white">Sản phẩm</a></li>
+                        <li><a href="#" class="text-white">Giới thiệu</a></li>
+                        <li><a href="#" class="text-white">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Hỗ trợ</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Câu hỏi thường gặp</a></li>
+                        <li><a href="#" class="text-white">Chính sách bảo hành</a></li>
+                        <li><a href="#" class="text-white">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#" class="text-white">Thanh toán & giao nhận</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone me-2"></i> (028) 1234 5678</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@motorshop.vn</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 MotorShop. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Designed with <i class="fas fa-heart text-danger"></i> by MotorShop Team</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <!-- Bootstrap 5 JS Bundle with Popper -->
