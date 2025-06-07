@@ -15,6 +15,7 @@
             "Trọng lượng": "201 kg",
             "Bảo hành": "24 tháng"
         },
+        "loaiXe": "Thể thao",
         "images": [
             "images/Honda CBR1000RR.jpg",
             "images/Honda CBR1000RR_1.jpg",
@@ -38,6 +39,7 @@
             "Trọng lượng": "201 kg",
             "Bảo hành": "12 tháng"
         },
+        "loaiXe": "Thể thao",
         "images": [
             "images/Yamaha R1.jpg",
             "images/Yamaha R1_1.jpg",
@@ -61,6 +63,7 @@
             "Trọng lượng": "175 kg",
             "Bảo hành": "36 tháng"
         },
+        "loaiXe": "Thể thao",
         "images": [
             "images/Ducati Panigale V4.jpg",
             "images/Ducati Panigale V4_1.jpg",
@@ -84,6 +87,7 @@
             "Trọng lượng": "199 kg",
             "Bảo hành": "36 tháng"
         },
+        "loaiXe": "Naked bike",
         "images": [
             "Images/BWM S1000 R 2.jpeg",
             "Images/BWM S1000 R 3.jpeg",
@@ -110,6 +114,7 @@
                 "Trọng lượng": "219 kg",
                 "Bảo hành": "36 tháng"
             },
+            "loaiXe": "Sport Touring",
             "images": [
                 "Images/BMW F 900 XR 1.jpg",
                 "Images/BMW F 900 XR 2.jpg",
@@ -133,6 +138,7 @@
             "Trọng lượng": "268 kg",
             "Bảo hành": "36 tháng"
         },
+        "loaiXe": "Adventure",
         "images": [
             "Images/BMW R 1250 GS Adventure 1.jpg",
             "Images/BMW R 1250 GS Adventure 2.jpg",
@@ -159,6 +165,7 @@
             "Trọng lượng": "279 kg",
             "Bảo hành": "36 tháng"
         },
+        "loaiXe": "Touring",
         "images": [
             "Images/BMW R 1250 RT 1.jpg",
             "Images/BMW R 1250 RT 2.jpg",
@@ -182,6 +189,7 @@
             "Trọng lượng": "199 kg",
             "Bảo hành": "36 tháng"
         },
+        "loaiXe": "Roadster",
         "images": [
             "Images/BMW S 1000 R 1.jpg",
             "Images/BMW S 1000 R 2.jpg",
@@ -205,6 +213,7 @@
             "Trọng lượng": "211 kg",
             "Bảo hành": "36 tháng"
         },
+        "loaiXe": "Roadster",
         "images": [
             "Images/BMW F 900 R 1.jpg",
             "Images/BMW F 900 R 2.jpg",
@@ -229,6 +238,7 @@
             "Trọng lượng": "398 kg",
             "Bảo hành": "36 tháng"
         },
+        "loaiXe": "Cruiser",
         "images": [
             "Images/BMW R 18 B 1.jpg",
             "Images/BMW R 18 B 2.jpg",
@@ -253,6 +263,7 @@
             "Trọng lượng": "427 kg",
             "Bảo hành": "36 tháng"
         },
+        "loaiXe": "Touring",
         "images": [
             "Images/BMW R 18 Transcontinental 1.jpg",
             "Images/BMW R 18 Transcontinental 2.jpg",
@@ -276,6 +287,7 @@
             "Trọng lượng": "345 kg",
             "Bảo hành": "36 tháng"
         },
+        "loaiXe": "Cruiser",
         "images": [
             "Images/BMW R 18 1.jpg",
             "Images/BMW R 18 2.jpg",
@@ -300,6 +312,7 @@
             "Trọng lượng": "207 kg",
             "Bảo hành": "36 tháng"
             },
+            "loaiXe": "Sport bike",
             "images": [
             "Images/Ninja ZX-10R ABS 1.jpg",
             "Images/Ninja ZX-10R ABS 2.jpg",
@@ -323,6 +336,7 @@
             "Trọng lượng": "226 kg",
             "Bảo hành": "36 tháng"
             },
+            "loaiXe": "Classic",
             "images": [
             "Images/W800 ABS 1.jpg",
             "Images/W800 ABS 2.jpg",
@@ -346,6 +360,7 @@
             "Trọng lượng": "188 kg",
             "Bảo hành": "36 tháng"
             },
+            "loaiXe": "Sport bike",
             "images": [
             "Images/Ninja ZX-4R 1.jpg",
             "Images/Ninja ZX-4R 2.jpg",
@@ -369,6 +384,7 @@
             "Trọng lượng": "202 kg",
             "Bảo hành": "24 tháng"
             },
+            "loaiXe": "Classic Retro",
             "images": [
             
             "Images/Interceptor 1.jpg",
@@ -393,6 +409,7 @@
             "Trọng lượng": "198 kg",
             "Bảo hành": "24 tháng"
             },
+            "loaiXe": "Café Racer",
             "images": [
             "Images/Continental GT 1.jpg",
             "Images/Continental GT 2.jpg",
@@ -416,6 +433,7 @@
             "Trọng lượng": "199 kg",
             "Bảo hành": "24 tháng"
             },
+            "loaiXe": "Adventure Touring",
             "images": [
             "Images/Himalayan 1.jpg",
             "Images/Himalayan 2.jpg",
@@ -440,6 +458,7 @@
             "Trọng lượng": "375 kg",
             "Bảo hành": "24 tháng"
             },
+            "loaiXe": "Bagger / Touring",
             "images": [
             "Images/Harley Road King Special 1.jpg",
             "Images/Harley Road King Special 2.jpg",
@@ -462,6 +481,7 @@
             "Trọng lượng": "375 kg",
             "Bảo hành": "24 tháng"
             },
+            "loaiXe": "Touring",
             "images": [
             "Images/Harley Street Glide 1.jpg",
             "Images/Harley Street Glide 2.jpg",
@@ -484,6 +504,7 @@
             "Trọng lượng": "387 kg",
             "Bảo hành": "24 tháng"
             },
+            "loaiXe": "Touring",
             "images": [
             "Images/Harley Road Glide 1.jpg",
             "Images/Harley Road Glide 2.jpg",

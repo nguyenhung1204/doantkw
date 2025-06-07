@@ -297,14 +297,16 @@ function viewOrderDetails(orderId) {
 // Xử lý đánh dấu đơn hàng là hoàn thành
 function markOrderCompleted(orderId) {
     let orders = JSON.parse(localStorage.getItem('orders')) || [];
-    const orderIndex = orders.findIndex(o => o.id === orderId);
-
+    const orderIndex = orders.findIndex(o => String(o.id) === String(orderId));
     if (orderIndex > -1) {
-        orders[orderIndex].status = 'Đã hoàn thành'; // Cập nhật trạng thái
+        orders[orderIndex].status = 'Đã hoàn thành';
         localStorage.setItem('orders', JSON.stringify(orders));
         showAlert(`Đơn hàng ${orderId} đã được đánh dấu là HOÀN THÀNH.`, 'success');
-        renderDynamicOrdersToTable(); // Render lại bảng
-        updateNotificationDropdown(); // Cập nhật lại thông báo
+        renderDynamicOrdersToTable();
+        updateNotificationDropdown();
+        calculateTotalRevenue();
+        updateDashboardStats();
+        updateBestSellingVehicleChart(); // cập nhật lại biểu đồ loại xe bán chạy
     } else {
         showAlert('Không tìm thấy đơn hàng này để hoàn thành.', 'danger');
     }
@@ -474,3 +476,214 @@ function updateNotificationDropdown() {
     }
     console.log(`Hoàn tất cập nhật thông báo. Có ${newNotificationCount} đơn hàng mới.`);
 }
+
+// Hàm tính tổng doanh thu
+function calculateTotalRevenue() {
+    // Lấy danh sách đơn hàng từ localStorage
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    // Lọc các đơn hàng có trạng thái "Đã hoàn thành"
+    const completedOrders = orders.filter(order => order.status === "Đã hoàn thành");
+
+    // Tính tổng doanh thu từ các đơn hàng đã hoàn thành
+    const totalRevenue = completedOrders.reduce((sum, order) => {
+        // Hỗ trợ cả hai trường: totalPrice hoặc total
+        const thanhTien = order.totalPrice !== undefined ? order.totalPrice : order.total !== undefined ? order.total : 0;
+        return sum + thanhTien;
+    }, 0);
+
+    // Cập nhật giá trị vào phần tử có ID "totalRevenue"
+    document.getElementById("totalRevenue").textContent = totalRevenue.toLocaleString("vi-VN", {
+        style: "currency",
+        currency: "VND"
+    });
+}
+
+// Cập nhật số liệu Đơn hàng, Khách hàng, Sản phẩm trên dashboard
+function updateDashboardStats() {
+    // Lấy danh sách đơn hàng từ localStorage
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    // Lọc các đơn hàng đã hoàn thành
+    const completedOrders = orders.filter(order => order.status === "Đã hoàn thành");
+    // Đếm số đơn hàng đã hoàn thành
+    document.getElementById("totalOrders").textContent = completedOrders.length;
+    // Đếm số khách hàng duy nhất từ các đơn hàng đã hoàn thành
+    const uniqueCustomers = new Set(completedOrders.map(order => order.customerInfo && order.customerInfo.phone ? order.customerInfo.phone : null).filter(Boolean));
+    document.getElementById("totalCustomers").textContent = uniqueCustomers.size;
+    // Đếm tổng số sản phẩm từ product.json
+    fetch('data/product.json')
+        .then(res => res.json())
+        .then(products => {
+            document.getElementById("totalProducts").textContent = products.length;
+        });
+}
+
+// Hàm cập nhật biểu đồ loại xe bán chạy dựa trên đơn hàng đã hoàn thành
+function updateBestSellingVehicleChart() {
+    // Lấy danh sách đơn hàng đã hoàn thành
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    const completedOrders = orders.filter(order => order.status === "Đã hoàn thành");
+    const bestSellingTypeList = document.getElementById('bestSellingTypeList');
+    if (bestSellingTypeList) bestSellingTypeList.innerHTML = '';
+    if (completedOrders.length === 0) {
+        if (window.productChartInstance) {
+            window.productChartInstance.data.labels = [];
+            window.productChartInstance.data.datasets[0].data = [];
+            window.productChartInstance.update();
+        }
+        return;
+    }
+    fetch('data/product.json')
+        .then(res => res.json())
+        .then(products => {
+            const productTypeMap = {};
+            products.forEach(p => {
+                productTypeMap[String(p.id)] = p.loaiXe;
+            });
+            const typeCount = {};
+            completedOrders.forEach(order => {
+                if (Array.isArray(order.items)) {
+                    order.items.forEach(item => {
+                        const prodId = item.productId !== undefined ? item.productId : item.id;
+                        const type = productTypeMap[String(prodId)];
+                        if (type) {
+                            typeCount[type] = (typeCount[type] || 0) + (item.quantity ? Number(item.quantity) : 1);
+                        }
+                    });
+                }
+            });
+            const labels = Object.keys(typeCount);
+            const data = Object.values(typeCount);
+            // Cập nhật lại biểu đồ Chart.js
+            const ctx = document.getElementById('productChart');
+            if (ctx) {
+                if (window.productChartInstance) {
+                    window.productChartInstance.data.labels = labels;
+                    window.productChartInstance.data.datasets[0].data = data;
+                    window.productChartInstance.update();
+                } else {
+                    window.productChartInstance = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: data,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.7)',
+                                    'rgba(54, 162, 235, 0.7)',
+                                    'rgba(255, 206, 86, 0.7)',
+                                    'rgba(75, 192, 192, 0.7)',
+                                    'rgba(153, 102, 255, 0.7)',
+                                    'rgba(255, 159, 64, 0.7)',
+                                    'rgba(100, 200, 100, 0.7)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            // Hiển thị danh sách loại xe bán chạy
+            if (bestSellingTypeList) {
+                if (labels.length === 0) {
+                    bestSellingTypeList.innerHTML = '<li class="list-group-item text-muted">Chưa có dữ liệu</li>';
+                } else {
+                    // Sắp xếp giảm dần theo số lượng
+                    const sorted = labels.map((type, i) => ({type, count: data[i]})).sort((a, b) => b.count - a.count);
+                    bestSellingTypeList.innerHTML = sorted.map(item => `<li class="list-group-item d-flex justify-content-between align-items-center">${item.type}<span class="badge bg-primary rounded-pill">${item.count}</span></li>`).join('');
+                }
+            }
+        });
+}
+
+// Hàm cập nhật biểu đồ doanh thu theo khoảng thời gian đã chọn (1, 3, 6 tháng), lấy dữ liệu từ đơn hàng đã hoàn thành
+function updateRevenueChart(days = 30) {
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    const completedOrders = orders.filter(order => order.status === "Đã hoàn thành");
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    // Tạo mảng các ngày trong khoảng days gần đây (theo thứ tự tăng dần)
+    const dateLabels = [];
+    const revenueData = [];
+    for (let i = days - 1; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        d.setHours(0,0,0,0);
+        const label = d.toLocaleDateString('vi-VN');
+        dateLabels.push(label);
+        // Tính tổng doanh thu cho ngày này
+        const total = completedOrders.filter(order => {
+            if (!order.date) return false;
+            // order.date dạng dd/mm/yyyy
+            const [day, month, year] = order.date.split('/');
+            const orderDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+            orderDate.setHours(0,0,0,0);
+            return orderDate.getTime() === d.getTime();
+        }).reduce((sum, order) => {
+            const thanhTien = order.totalPrice !== undefined ? order.totalPrice : order.total !== undefined ? order.total : 0;
+            return sum + thanhTien;
+        }, 0);
+        revenueData.push(total);
+    }
+    // Vẽ hoặc cập nhật biểu đồ
+    const ctx = document.getElementById('revenueChart');
+    if (ctx) {
+        if (window.revenueChartInstance) {
+            window.revenueChartInstance.data.labels = dateLabels;
+            window.revenueChartInstance.data.datasets[0].data = revenueData;
+            window.revenueChartInstance.update();
+        } else {
+            window.revenueChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dateLabels,
+                    datasets: [{
+                        label: 'Doanh thu',
+                        data: revenueData,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toLocaleString('vi-VN');
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    calculateTotalRevenue();
+    updateDashboardStats();
+    updateBestSellingVehicleChart();
+    updateRevenueChart(30);
+    const rangeSelect = document.getElementById('revenueRangeSelect');
+    if (rangeSelect) {
+        rangeSelect.addEventListener('change', function() {
+            updateRevenueChart(parseInt(this.value));
+        });
+    }
+});
