@@ -20,6 +20,26 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
+        }
+        .carousel-inner {
+            height: 1000px;
+        }
+        .carousel-item img {
+            height: 1000px;
+            object-fit: cover;
+            width: 100%;
+        }
+        .sticky-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            transition: top 0.3s;
+        }
+        .hide-navbar {
+            top: -80px;
         }
     </style>
 </head>
@@ -68,8 +88,12 @@
         </div>
     </header>
 
+    <div class="w-100" style="margin-bottom:0;">
+        <video src="Images/backgroundvid.mp4" autoplay muted loop style="width:100%;max-height:1000px;object-fit:cover;display:block"></video>
+    </div>
+
     <!-- Slider -->
-    <section class="mb-5">
+    <section style="margin-top:0;margin-bottom:32px;" class="mb-5">
         <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="0" class="active"></button>
@@ -559,5 +583,50 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="js/main.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const navbar = document.querySelector("header");
+    let lastScroll = window.scrollY;
+    let ticking = false;
+
+    function onScroll() {
+        const currentScroll = window.scrollY;
+        if (currentScroll < 10 || currentScroll < lastScroll) {
+            navbar.classList.remove("hide-navbar");
+        } else {
+            navbar.classList.add("hide-navbar");
+        }
+        lastScroll = currentScroll;
+    }
+
+    navbar.classList.add("sticky-navbar");
+    window.addEventListener("scroll", function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                onScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    // Hiện lại navbar khi rê chuột lên đầu trang
+    document.addEventListener("mousemove", function(e) {
+        if (e.clientY < 80) {
+            navbar.classList.remove("hide-navbar");
+        }
+    });
+});
+
+// Tự động chuyển slide carousel sau 2 giây
+const mainSlider = document.getElementById('mainSlider');
+if (mainSlider) {
+    const carousel = new bootstrap.Carousel(mainSlider, {
+        interval: 2000,
+        ride: 'carousel',
+        pause: false
+    });
+}
+</script>
 </body>
 </html>
