@@ -222,10 +222,10 @@ function renderDynamicOrdersToTable() {
         }
 
         // Lấy thông tin khách hàng, ưu tiên order.customerDetails
-        const customerName = order.customerDetails ? order.customerDetails.name : (order.customer || 'N/A');
-        const customerPhone = order.customerDetails ? order.customerDetails.phone : 'N/A';
-        const customerAddress = order.customerDetails ? order.customerDetails.address : 'N/A';
-        const orderNotes = order.customerDetails ? order.customerDetails.notes : '';
+        const customerName = order.customerInfo ? order.customerInfo.name : (order.customer || 'N/A');
+        const customerPhone = order.customerInfo ? order.customerInfo.phone : 'N/A';
+        const customerAddress = order.customerInfo ? order.customerInfo.address : 'N/A';
+        const orderNotes = order.customerInfo ? order.customerInfo.notes : '';
 
         row.innerHTML = `
             <td>${order.id}</td>
@@ -309,11 +309,11 @@ function viewOrderDetails(orderId) {
         const customerAddressElement = document.getElementById('detail-customer-address');
         const orderNotesElement = document.getElementById('detail-order-notes');
 
-        if (order.customerDetails) {
-            customerNameElement.textContent = order.customerDetails.name || 'N/A';
-            customerPhoneElement.textContent = order.customerDetails.phone || 'Chưa cập nhật';
-            customerAddressElement.textContent = order.customerDetails.address || 'Chưa cập nhật';
-            orderNotesElement.innerHTML = order.customerDetails.notes || 'Không có ghi chú.'; 
+        if (order.customerInfo) {
+            customerNameElement.textContent = order.customerInfo.name || 'N/A';
+            customerPhoneElement.textContent = order.customerInfo.phone || 'Chưa cập nhật';
+            customerAddressElement.textContent = order.customerInfo.address || 'Chưa cập nhật';
+            orderNotesElement.innerHTML = order.customerInfo.notes || 'Không có ghi chú.'; 
         } else {
             // Trường hợp đơn hàng cũ không có customerDetails hoặc là 'Khách hàng ẩn danh'
             customerNameElement.textContent = order.customer || 'N/A'; 
@@ -488,7 +488,7 @@ function updateNotificationDropdown() {
         
         const displayOrderId = order.id.startsWith('ORD-') ? order.id.split('-')[1] : order.id;
         // Thay đổi ở đây: ưu tiên customerDetails.name, nếu không có thì dùng customer
-        const customerDisplayName = order.customerDetails ? order.customerDetails.name : order.customer;
+        const customerDisplayName = order.customerInfo ? order.customerInfo.name : order.customer;
         link.innerHTML = `Đơn hàng mới #${displayOrderId} - ${customerDisplayName} (${order.status})`; 
 
         link.addEventListener('click', function(e) {
@@ -735,6 +735,47 @@ document.addEventListener("DOMContentLoaded", function () {
     if (rangeSelect) {
         rangeSelect.addEventListener('change', function() {
             updateRevenueChart(parseInt(this.value));
+        });
+    }
+});
+
+function applyDarkMode(isDarkMode) {
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        // Nếu bạn muốn cả sidebar cũng đổi màu theo chế độ tối, bạn có thể thêm class cho sidebar
+        // document.getElementById('sidebar').classList.add('dark-mode-sidebar');
+    } else {
+        document.body.classList.remove('dark-mode');
+        // document.getElementById('sidebar').classList.remove('dark-mode-sidebar');
+    }
+}
+
+// Lắng nghe sự kiện khi tài liệu đã tải xong
+document.addEventListener('DOMContentLoaded', function() {
+    // ... (các code DOMContentLoaded hiện có của bạn) ...
+
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
+    if (darkModeToggle) {
+        // 1. Kiểm tra trạng thái đã lưu trong localStorage khi trang tải
+        const savedDarkMode = localStorage.getItem('darkMode');
+        if (savedDarkMode === 'enabled') {
+            darkModeToggle.checked = true; // Đặt trạng thái nút toggle
+            applyDarkMode(true); // Áp dụng chế độ tối
+        } else {
+            darkModeToggle.checked = false; // Đảm bảo nút toggle ở trạng thái tắt
+            applyDarkMode(false); // Áp dụng chế độ sáng mặc định
+        }
+
+        // 2. Lắng nghe sự kiện thay đổi trên nút toggle
+        darkModeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                applyDarkMode(true);
+                localStorage.setItem('darkMode', 'enabled'); // Lưu trạng thái
+            } else {
+                applyDarkMode(false);
+                localStorage.setItem('darkMode', 'disabled'); // Lưu trạng thái
+            }
         });
     }
 });
