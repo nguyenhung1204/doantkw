@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS custom -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        h2 {
+            color: var(--primary-color, #e63946);
+            margin-bottom: 1.5rem;
+        }
+        .product-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .sticky-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            transition: top 0.3s;
+        }
+        .hide-navbar {
+            top: -80px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-dark py-3">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand fw-bold" href="index.html">
+                        <i class="fas fa-motorcycle me-2"></i>MotorShop
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="product-detail.html">Sản phẩm</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Liên hệ</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex">
+                            <form class="d-flex me-2">
+                                <input class="form-control me-2" type="search" placeholder="Tìm kiếm...">
+                                <button class="btn btn-outline-light" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                            <a href="cart.html" class="btn btn-outline-light me-2">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span id="cart-count" class="badge bg-danger">0</span>
+                            </a>
+                            <div id="user-menu" class="dropdown d-none">
+                                <a href="#" class="btn btn-primary dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i> <span id="navbar-username">Tài khoản</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
+                                    <li><a class="dropdown-item" href="#" id="logout-btn"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                                </ul>
+                            </div>
+                            <a href="login.html" id="login-btn" class="btn btn-primary">
+                                <i class="fas fa-user"></i> Đăng nhập
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Filter bar -->
+    <section class="container my-4" style="margin-top:150px !important;">
+        <form id="filterForm" class="row g-3 align-items-center mb-4">
+            <div class="col-md-3">
+                <select id="filterType" class="form-select">
+                    <option value="">Tất cả loại xe</option>
+                    <option value="Sportbike">Sportbike</option>
+                    <option value="Nakedbike">Nakedbike / Roadster</option>
+                    <option value="Cruiser">Cruiser</option>
+                    <option value="Touring">Touring</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Bagger">Bagger</option>
+                    <option value="Classic">Classic</option>
+                    <option value="Cafe Racer">Cafe Racer</option>
+                    <option value="Phụ kiện">Phụ kiện - Phụ tùng</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="filterBrand" class="form-select">
+                    <option value="">Tất cả hãng xe</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Yamaha">Yamaha</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Ducati">Ducati</option>
+                    <option value="Harley">Harley</option>
+                    <option value="Royal Enfield">Royal Enfield</option>
+                    <option value="Kawasaki">Kawasaki</option>
+                    <option value="Givi">Givi</option>
+                    <option value="Motowolf">Motowolf</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="sortPrice" class="form-select">
+                    <option value="">Sắp xếp theo giá</option>
+                    <option value="asc">Giá thấp đến cao</option>
+                    <option value="desc">Giá cao đến thấp</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="button" id="resetFilter" class="btn btn-secondary w-100">Đặt lại bộ lọc</button>
+            </div>
+        </form>
+    </section>
+    <!-- Danh mục sản phẩm -->
+    <section class="container my-5" id="productListSection">
+
+        <!-- Sportbike -->
+        <h2 class="text-center">Sportbike</h2>
+        <div class="row">
+            <!-- Honda CBR1000RR -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Honda CBR1000RR.jpg" class="card-img-top" alt="Honda CBR1000RR">
+                    <div class="card-body">
+                        <h5 class="card-title">Honda CBR1000RR</h5>
+                        <p class="card-text text-muted">Thể thao | 1000cc</p>
+                        <h5 class="text-primary">850.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=1" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Yamaha R1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Yamaha R1.jpg" class="card-img-top" alt="Yamaha R1">
+                    <div class="card-body">
+                        <h5 class="card-title">Yamaha R1</h5>
+                        <p class="card-text text-muted">Thể thao | 998cc</p>
+                        <h5 class="text-primary">820.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                     <div class="card-footer bg-transparent">
+                        <a href="product.html?id=2" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Ninja ZX-10R ABS -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Ninja ZX-10R ABS 1.jpg" class="card-img-top" alt="Ninja ZX-10R ABS">
+                    <div class="card-body">
+                        <h5 class="card-title">Ninja ZX-10R ABS</h5>
+                        <p class="card-text text-muted">Sport bike | 998cc</p>
+                        <h5 class="text-primary">729.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=13" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Ducati Panigale V4 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Ducati Panigale V4.jpg" class="card-img-top" alt="Ducati Panigale V4">
+                    <div class="card-body">
+                        <h5 class="card-title">Ducati Panigale V4</h5>
+                        <p class="card-text text-muted">Thể thao | 1103cc</p>
+                        <h5 class="text-primary">1.250.000.000 VND</h5>
+                        <span class="badge bg-warning">Sắp về</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=3" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!-- BMW S1000 RR -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/BWM S1000 R 2.jpeg" class="card-img-top" alt="BMW S1000 RR">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW S1000 RR</h5>
+                        <p class="card-text text-muted">Thể thao | 1250cc</p>
+                        <h5 class="text-primary">950.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=4" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Ninja ZX-4R -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Ninja ZX-4R 2.jpg" class="card-img-top" alt="Ninja ZX-4R">
+                    <div class="card-body">
+                        <h5 class="card-title">Ninja ZX-4R</h5>
+                        <p class="card-text text-muted">Sport bike | 399cc</p>
+                        <h5 class="text-primary">399.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                     <div class="card-footer bg-transparent">
+                        <a href="product.html?id=15" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nakedbike / Roadster -->
+        <h2 class="text-center">Nakedbike / Roadster</h2>
+        <div class="row">
+            <!-- BMW F 900 R -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/BMW F 900 R 2.jpg" class="card-img-top" alt="BMW F 900 R">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW F 900 R</h5>
+                        <p class="card-text text-muted">Roadster | 895cc</p>
+                        <h5 class="text-primary">459.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="product.html?id=9" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!-- BMW S 1000 R -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/BMW S 1000 R 1.jpg" class="card-img-top" alt="BMW S 1000 R">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW S 1000 R</h5>
+                        <p class="card-text text-muted">Roadster | 999cc</p>
+                        <h5 class="text-primary">649.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="product.html?id=8" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cruiser -->
+        <h2 class="text-center">Cruiser</h2>
+        <div class="row">
+            <!-- BMW R 18 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/BMW R 18 2.jpg" class="card-img-top" alt="BMW R 18">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW R 18</h5>
+                        <p class="card-text text-muted">Cruiser | 1802cc</p>
+                        <h5 class="text-primary">829.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=12" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                        </div>
+                </div>
+            </div>
+            <!-- BMW R 18 B -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/BMW R 18 B 1.jpg" class="card-img-top" alt="BMW R 18 B">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW R 18 B</h5>
+                        <p class="card-text text-muted">Cruiser | 1802cc</p>
+                        <h5 class="text-primary">1.139.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=10" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Touring -->
+        <h2 class="text-center">Touring</h2>
+        <div class="row">
+            <!-- BMW R 1250 RT -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/BMW R 1250 RT 3.jpg" class="card-img-top" alt="BMW R 1250 RT">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW R 1250 RT</h5>
+                        <p class="card-text text-muted">Touring | 1254cc</p>
+                        <h5 class="text-primary">1.099.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="product.html?id=7" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Harley Street Glide -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Harley Street Glide 1.jpg" class="card-img-top" alt="Harley Street Glide">
+                    <div class="card-body">
+                        <h5 class="card-title">Harley Street Glide</h5>
+                        <p class="card-text text-muted">Touring | Milwaukee-Eight 114</p>
+                        <h5 class="text-primary">979.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=14" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                        </div>
+                </div>
+            </div>
+            <!-- BMW R 18 Transcontinental -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/BMW R 18 Transcontinental 2.jpg" class="card-img-top" alt="BMW R 18 Transcontinental">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW R 18 Transcontinental</h5>
+                        <p class="card-text text-muted">Touring | 1802cc</p>
+                        <h5 class="text-primary">1.339.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=11" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adventure -->
+        <h2 class="text-center">Adventure</h2>
+        <div class="row">
+            <!-- BMW R 1250 GS Adventure -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/BMW R 1250 GS Adventure 1.jpg" class="card-img-top" alt="BMW R 1250 GS Adventure">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW R 1250 GS Adventure</h5>
+                        <p class="card-text text-muted">Adventure | 1254cc</p>
+                        <h5 class="text-primary">790.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="product.html?id=6" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Himalayan -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Himalayan 1.jpg" class="card-img-top" alt="Himalayan">
+                    <div class="card-body">
+                        <h5 class="card-title">Himalayan</h5>
+                        <p class="card-text text-muted">Adventure | 411cc</p>
+                        <h5 class="text-primary">149.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                     <div class="card-footer bg-transparent">
+                            <a href="product.html?id=18" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                        </div>
+                </div>
+            </div>
+            <!-- BMW F 900 XR -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/BMW F 900 XR 3.jpg" class="card-img-top" alt="BMW F 900 XR">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW F 900 XR</h5>
+                        <p class="card-text text-muted">Thể thao | 895cc</p>
+                        <h5 class="text-primary">550.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="product.html?id=5" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bagger -->
+        <h2 class="text-center">Bagger</h2>
+        <div class="row">
+            <!-- Harley Road King Special -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Harley Road King Special 1.jpg" class="card-img-top" alt="Harley Road King Special">
+                    <div class="card-body">
+                        <h5 class="card-title">Harley Road King Special</h5>
+                        <p class="card-text text-muted">Bagger | Milwaukee-Eight 114</p>
+                        <h5 class="text-primary">899.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="product.html?id=13" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Road Glide -->
+        <h2 class="text-center">Road Glide</h2>
+        <div class="row">
+            <!-- Harley Road Glide -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Harley Road Glide 1.jpg" class="card-img-top" alt="Harley Road Glide">
+                    <div class="card-body">
+                        <h5 class="card-title">Harley Road Glide</h5>
+                        <p class="card-text text-muted">Touring | Milwaukee-Eight 114</p>
+                        <h5 class="text-primary">999.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                     <div class="card-footer bg-transparent">
+                        <a href="product.html?id=15" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Classic -->
+        <h2 class="text-center">Classic</h2>
+        <div class="row">
+            <!-- W800 ABS -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/W800 ABS 1.jpg" class="card-img-top" alt="W800 ABS">
+                    <div class="card-body">
+                        <h5 class="card-title">W800 ABS</h5>
+                        <p class="card-text text-muted">Classic | 773cc</p>
+                        <h5 class="text-primary">319.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                   <div class="card-footer bg-transparent">
+                        <a href="product.html?id=14" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Interceptor -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Interceptor 1.jpg" class="card-img-top" alt="Interceptor">
+                    <div class="card-body">
+                        <h5 class="card-title">Interceptor</h5>
+                        <p class="card-text text-muted">Classic | 648cc</p>
+                        <h5 class="text-primary">198.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                     <div class="card-footer bg-transparent">
+                            <a href="product.html?id=16" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cafe Racer -->
+        <h2 class="text-center">Cafe Racer</h2>
+        <div class="row">
+            <!-- Continental GT -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Continental GT 1.jpg" class="card-img-top" alt="Continental GT">
+                    <div class="card-body">
+                        <h5 class="card-title">Continental GT</h5>
+                        <p class="card-text text-muted">Cafe Racer | 648cc</p>
+                        <h5 class="text-primary">205.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                     <div class="card-footer bg-transparent">
+                            <a href="product.html?id=17" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phụ kiện & Phụ tùng -->
+         <h2 class="text-center">Phụ kiện - Phụ tùng</h2>
+        <div class="row">
+            <!--phụ kiện 1-->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/Nón bảo hiểm full face.jpg" class="card-img-top" alt="Nón bảo hiểm Fullface">
+                    <div class="card-body">
+                        <h5 class="card-title">Nón bảo hiểm Fullface</h5>
+                        <p class="card-text text-muted">Bảo vệ đầu, an toàn cao cấp.</p>
+                        <h5 class="text-primary">2.500.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="#" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!--phụ kiện 2-->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/găng tay bảo hộ.jpg" class="card-img-top" alt="Găng tay da">
+                    <div class="card-body">
+                        <h5 class="card-title">Găng tay da</h5>
+                        <p class="card-text text-muted">Chống trượt, bảo vệ bàn tay.</p>
+                        <h5 class="text-primary">650.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="#" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!--phụ kiện 3-->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/kính chắn gió moto.jpg" class="card-img-top" alt="Kính chắn gió">
+                    <div class="card-body">
+                        <h5 class="card-title">Kính chắn gió</h5>
+                        <p class="card-text text-muted">Chắn gió, hạn chế gió tạt trực diện.</p>
+                        <h5 class="text-primary">900.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="#" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!--phụ kiện 4 -->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/bo-quan-ao-giap-moto-a3.jpg" class="card-img-top" alt="Áo giáp bảo hộ">
+                    <div class="card-body">
+                        <h5 class="card-title">Áo giáp bảo hộ</h5>
+                        <p class="card-text text-muted">Bảo vệ thân trên khi lưu thông.</p>
+                        <h5 class="text-primary">2.200.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="#" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!--phụ kiện 5-->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/gia-do-dien-thoai-motowolf-mh1-kep-ghi-dong-mau-do.jpg" class="card-img-top" alt="Kẹp điện thoại">
+                    <div class="card-body">
+                        <h5 class="card-title">Kẹp điện thoại</h5>
+                        <p class="card-text text-muted">Giữ điện thoại chắc chắn trên xe.</p>
+                        <h5 class="text-primary">350.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="#" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!--phụ kiện 6-->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/thung-sau-xe-may-givi-b27n-1.jpg" class="card-img-top" alt="Baga chở hàng">
+                    <div class="card-body">
+                        <h5 class="card-title">Thùng sau chở hàng</h5>
+                        <p class="card-text text-muted">Hỗ trợ chở đồ tiện lợi.</p>
+                        <h5 class="text-primary">800.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="#" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!--phụ kiện 7-->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/ống xã.jpg" class="card-img-top" alt="Ống xả độ">
+                    <div class="card-body">
+                        <h5 class="card-title">Ống xả độ</h5>
+                        <p class="card-text text-muted">Tăng hiệu suất, âm thanh uy lực.</p>
+                        <h5 class="text-primary">3.000.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="#" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <!--phụ kiện 8-->
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 product-card">
+                    <img src="Images/khóa chống trộm.jpg" class="card-img-top" alt="Khóa chống trộm">
+                    <div class="card-body">
+                        <h5 class="card-title">Khóa chống trộm</h5>
+                        <p class="card-text text-muted">Bảo vệ xe khỏi trộm cắp.</p>
+                        <h5 class="text-primary">450.000 VND</h5>
+                        <span class="badge bg-success">Còn hàng</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                    <a href="#" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 w-100" style="position:relative;left:0;right:0;width:100vw;min-width:100vw;overflow-x:hidden;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%); margin-bottom: calc(-50vh);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-motorcycle me-2"></i>MotorShop</h5>
+                    <p>Chuyên cung cấp các dòng xe motor cao cấp, chính hãng với giá cả hợp lý nhất.</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Liên kết</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Trang chủ</a></li>
+                        <li><a href="#" class="text-white">Sản phẩm</a></li>
+                        <li><a href="#" class="text-white">Giới thiệu</a></li>
+                        <li><a href="#" class="text-white">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Hỗ trợ</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Câu hỏi thường gặp</a></li>
+                        <li><a href="#" class="text-white">Chính sách bảo hành</a></li>
+                        <li><a href="#" class="text-white">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#" class="text-white">Thanh toán & giao nhận</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone me-2"></i> (028) 1234 5678</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@motorshop.vn</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 MotorShop. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Designed with <i class="fas fa-heart text-danger"></i> by MotorShop Team</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Navbar sticky show/hide logic giống index.html
+    document.addEventListener("DOMContentLoaded", function() {
+        const navbar = document.querySelector("header");
+        let lastScroll = window.scrollY;
+        let ticking = false;
+        function onScroll() {
+            const currentScroll = window.scrollY;
+            if (currentScroll < 10 || currentScroll < lastScroll) {
+                navbar.classList.remove("hide-navbar");
+            } else {
+                navbar.classList.add("hide-navbar");
+            }
+            lastScroll = currentScroll;
+        }
+        navbar.classList.add("sticky-navbar");
+        window.addEventListener("scroll", function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    onScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        // Hiện lại navbar khi rê chuột lên đầu trang
+        document.addEventListener("mousemove", function(e) {
+            if (e.clientY < 80) {
+                navbar.classList.remove("hide-navbar");
+            }
+        });
+    });
+    </script>
+    <script>
+// Filter & sort logic
+function parsePrice(str) {
+    return parseInt(str.replace(/\D/g, '')) || 0;
+}
+function getBrandFromName(name) {
+    if (!name) return '';
+    if (name.includes('Honda')) return 'Honda';
+    if (name.includes('Yamaha')) return 'Yamaha';
+    if (name.includes('BMW')) return 'BMW';
+    if (name.includes('Ducati')) return 'Ducati';
+    if (name.includes('Harley')) return 'Harley';
+    if (name.includes('Royal Enfield') || name.includes('Himalayan') || name.includes('Interceptor') || name.includes('Continental')) return 'Royal Enfield';
+    if (name.includes('Kawasaki') || name.includes('Ninja') || name.includes('W800')) return 'Kawasaki';
+    if (name.includes('Givi')) return 'Givi';
+    if (name.includes('Motowolf')) return 'Motowolf';
+    return '';
+}
+function getTypeFromSection(sectionTitle) {
+    if (!sectionTitle) return '';
+    if (sectionTitle.includes('Sportbike')) return 'Sportbike';
+    if (sectionTitle.includes('Nakedbike')) return 'Nakedbike';
+    if (sectionTitle.includes('Cruiser')) return 'Cruiser';
+    if (sectionTitle.includes('Touring')) return 'Touring';
+    if (sectionTitle.includes('Adventure')) return 'Adventure';
+    if (sectionTitle.includes('Bagger')) return 'Bagger';
+    if (sectionTitle.includes('Classic')) return 'Classic';
+    if (sectionTitle.includes('Cafe Racer')) return 'Cafe Racer';
+    if (sectionTitle.includes('Phụ kiện')) return 'Phụ kiện';
+    return '';
+}
+function filterAndSortProducts() {
+    const type = document.getElementById('filterType').value;
+    const brand = document.getElementById('filterBrand').value;
+    const sort = document.getElementById('sortPrice').value;
+    const searchInput = document.getElementById('searchInput');
+    const keyword = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    // Lặp qua từng section
+    document.querySelectorAll('#productListSection > h2').forEach(sectionTitle => {
+        const sectionType = getTypeFromSection(sectionTitle.textContent);
+        let showSection = false;
+        const row = sectionTitle.nextElementSibling;
+        if (!row || !row.classList.contains('row')) return;
+        const cards = Array.from(row.children);
+        // Lọc sản phẩm
+        cards.forEach(cardCol => {
+            const card = cardCol.querySelector('.card');
+            if (!card) return;
+            const name = card.querySelector('.card-title')?.textContent || '';
+            const price = card.querySelector('.text-primary')?.textContent || '';
+            const brandName = getBrandFromName(name);
+            let matchType = !type || sectionType === type;
+            let matchBrand = !brand || brandName === brand;
+            let matchKeyword = !keyword || name.toLowerCase().includes(keyword);
+            if (matchType && matchBrand && matchKeyword) {
+                cardCol.style.display = '';
+                showSection = true;
+            } else {
+                cardCol.style.display = 'none';
+            }
+        });
+        // Ẩn/hiện section
+        sectionTitle.style.display = showSection ? '' : 'none';
+        row.style.display = showSection ? '' : 'none';
+        // Sắp xếp nếu có
+        if (sort && showSection) {
+            const sorted = cards.filter(col => col.style.display !== 'none').sort((a, b) => {
+                const priceA = parsePrice(a.querySelector('.text-primary')?.textContent || '0');
+                const priceB = parsePrice(b.querySelector('.text-primary')?.textContent || '0');
+                return sort === 'asc' ? priceA - priceB : priceB - priceA;
+            });
+            sorted.forEach(col => row.appendChild(col));
+        }
+    });
+}
+// Sự kiện cho filter/sort/search
+document.getElementById('filterType').addEventListener('change', filterAndSortProducts);
+document.getElementById('filterBrand').addEventListener('change', filterAndSortProducts);
+document.getElementById('sortPrice').addEventListener('change', filterAndSortProducts);
+document.getElementById('resetFilter').addEventListener('click', function() {
+    document.getElementById('filterType').value = '';
+    document.getElementById('filterBrand').value = '';
+    document.getElementById('sortPrice').value = '';
+    filterAndSortProducts();
+});
+// Thêm sự kiện cho form tìm kiếm
+const searchForm = document.querySelector('form.d-flex');
+const searchInput = document.querySelector('input[type="search"]');
+if (searchForm && searchInput) {
+    searchInput.id = 'searchInput';
+    searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        filterAndSortProducts();
+    });
+    searchInput.addEventListener('input', function() {
+        if (!this.value.trim()) filterAndSortProducts();
+    });
+}
+    </script>
+</body>
+</html>
