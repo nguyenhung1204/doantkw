@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -7,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         body { padding-top: 80px; }
         .favorite-item img {
@@ -15,22 +15,136 @@
             object-fit: cover;
             border-radius: 8px;
         }
+        .sticky-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            transition: top 0.3s;
+        }
+        .hide-navbar {
+            top: -80px;
+        }
+        
+        
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><i class="fas fa-motorcycle me-2"></i>MotorShop</a>
+    <!-- Navbar -->
+    <header class="bg-dark py-3 sticky-navbar">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand fw-bold" href="index.html">
+                        <i class="fas fa-motorcycle me-2"></i>MotorShop
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="product-detail.html">Sản phẩm</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="favourite.html">Yêu Thích</a></li>
+                        </ul>
+                        <div class="d-flex">
+                            <form class="d-flex me-2">
+                                <input class="form-control me-2" type="search" placeholder="Tìm kiếm...">
+                                <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+                            <a href="cart.html" class="btn btn-outline-light me-2">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span id="cart-count" class="badge bg-danger">0</span>
+                            </a>
+                            <div id="user-menu" class="dropdown d-none">
+                                <a href="#" class="btn btn-primary dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user"></i> <span id="navbar-username">Tài khoản</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
+                                    <li><a class="dropdown-item" href="#" id="logout-btn"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                                </ul>
+                            </div>
+                            <a href="login.html" id="login-btn" class="btn btn-primary">
+                                <i class="fas fa-user"></i> Đăng nhập
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </div>
-    </nav>
+    </header>
+
+    <!-- Danh sách yêu thích -->
     <div class="container mt-4">
         <h2 class="mb-4"><i class="fas fa-heart text-danger me-2"></i>Danh sách Yêu Thích</h2>
         <div id="favorite-container" class="row g-4"></div>
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 w-100" style="position:relative;left:0;right:0;width:100vw;min-width:100vw;overflow-x:hidden;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%); margin-bottom: calc(-50vh);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-motorcycle me-2"></i>MotorShop</h5>
+                    <p>Chuyên cung cấp các dòng xe motor cao cấp, chính hãng với giá cả hợp lý nhất.</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Liên kết</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Trang chủ</a></li>
+                        <li><a href="#" class="text-white">Sản phẩm</a></li>
+                        <li><a href="#" class="text-white">Giới thiệu</a></li>
+                        <li><a href="#" class="text-white">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Hỗ trợ</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Câu hỏi thường gặp</a></li>
+                        <li><a href="#" class="text-white">Chính sách bảo hành</a></li>
+                        <li><a href="#" class="text-white">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#" class="text-white">Thanh toán & giao nhận</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone me-2"></i> (028) 1234 5678</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@motorshop.vn</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 MotorShop. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Designed with <i class="fas fa-heart text-danger"></i> by MotorShop Team</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS yêu thích -->
     <script>
+    function renderFavorites() {
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
         const container = document.getElementById('favorite-container');
+        container.innerHTML = '';
 
         if (favorites.length === 0) {
             container.innerHTML = '<div class="col-12"><div class="alert alert-info">Bạn chưa thêm sản phẩm nào vào Yêu Thích.</div></div>';
@@ -44,52 +158,82 @@
                         <div class="card-body">
                             <h5 class="card-title">${p.name}</h5>
                             <p class="card-text">ID: ${p.id}</p>
-                            <button class="btn btn-sm btn-danger" onclick="removeFavorite(${p.id})">Xóa</button>
+                            <div class="d-flex justify-content-between">
+                            <button class="btn btn-sm btn-danger" onclick="removeFavorite('${p.id}')">Xóa</button>
+                            <a href="product.html?id=${p.id}" class="btn btn-sm btn-primary">Xem chi tiết</a>
+
                         </div>
+                    </div>
                     </div>
                 `;
                 container.appendChild(col);
             });
         }
-        
+    }
 
-function renderFavorites() {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    const container = document.getElementById('favorite-container');
-    container.innerHTML = '';
+    function removeFavorite(id) {
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        favorites = favorites.filter(p => p.id !== parseInt(id));
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        renderFavorites();
+    }
 
-    if (favorites.length === 0) {
-        container.innerHTML = '<div class="col-12"><div class="alert alert-info">Bạn chưa thêm sản phẩm nào vào Yêu Thích.</div></div>';
-    } else {
-        favorites.forEach(p => {
-            const col = document.createElement('div');
-            col.className = 'col-md-4';
-            col.innerHTML = `
-                <div class="card favorite-item h-100">
-                    <img src="${p.image || 'Images/placeholder.jpg'}" alt="${p.name}" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">${p.name}</h5>
-                        <p class="card-text">ID: ${p.id}</p>
-                        <button class="btn btn-sm btn-danger" onclick="removeFavorite('${p.id}')">Xóa</button>
-                    </div>
-                </div>
-            `;
-            container.appendChild(col);
+    document.addEventListener('DOMContentLoaded', function() {
+        renderFavorites();
+
+        // Navbar scroll logic
+        const navbar = document.querySelector("header");
+        let lastScroll = window.scrollY;
+        let ticking = false;
+
+        function onScroll() {
+            const currentScroll = window.scrollY;
+            if (currentScroll < 10 || currentScroll < lastScroll) {
+                navbar.classList.remove("hide-navbar");
+            } else {
+                navbar.classList.add("hide-navbar");
+            }
+            lastScroll = currentScroll;
+        }
+
+        window.addEventListener("scroll", function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    onScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
+
+        // User info logic
+        const username = localStorage.getItem('username');
+        const loginBtn = document.getElementById('login-btn');
+        const userMenu = document.getElementById('user-menu');
+        const navbarUsername = document.getElementById('navbar-username');
+        if (username) {
+            if (loginBtn) loginBtn.classList.add('d-none');
+            if (userMenu) userMenu.classList.remove('d-none');
+            if (navbarUsername) navbarUsername.textContent = username;
+        }
+
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('username');
+                location.reload();
+            });
+        }
+    });
+    function viewDetail(id) {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const product = favorites.find(p => p.id == id);
+    if (product) {
+        localStorage.setItem('selectedProduct', JSON.stringify(product));
+        window.location.href = 'product.html';
     }
 }
-
-function removeFavorite(id) {
-    id = parseInt(id); // ép kiểu về số để so sánh chính xác
-
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    favorites = favorites.filter(p => p.id !== id);
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-    renderFavorites(); // cập nhật lại giao diện
-}
-document.addEventListener('DOMContentLoaded', renderFavorites);
-
-
     </script>
 </body>
 </html>
