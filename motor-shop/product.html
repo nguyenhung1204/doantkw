@@ -48,6 +48,14 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Liên hệ</a>
                             </li>
+                            <li class="nav-item">
+                               <a class="nav-link" href="favourite.html" >Yêu Thích</a>
+
+</a>
+
+                               </li>
+                            
+                            
                         </ul>
                         <div class="d-flex">
                             <a href="cart.html" class="btn btn-outline-light me-2 position-relative">
@@ -129,13 +137,15 @@
                     </div>
                     
                     <div class="d-flex">
-                        <button class="btn btn-outline-secondary me-2">
-                            <i class="fas fa-heart me-2"></i>Yêu thích
-                        </button>
-                        <button class="btn btn-outline-secondary">
-                            <i class="fas fa-share-alt me-2"></i>Chia sẻ
-                        </button>
-                    </div>
+    <a href="#" id="add-to-favorite-btn" class="btn btn-outline-secondary me-2">
+    <i class="fas fa-heart me-2"></i>Yêu thích
+</a>
+
+    <button class="btn btn-outline-secondary">
+        <i class="fas fa-share-alt me-2"></i>Chia sẻ
+    </button>
+</div>
+
                 </div>
             </div>
             
@@ -267,6 +277,13 @@
     <script src="js/main.js"></script>
     
     <script>
+        function updateFavoriteCount() {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const countElement = document.getElementById('favorite-count');
+    if (countElement) {
+        countElement.textContent = favorites.length;
+    }
+}
         document.addEventListener('DOMContentLoaded', async function () {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = parseInt(urlParams.get('id'));
@@ -280,7 +297,8 @@
             try {
                 const response = await fetch('data/product.json');
                 const products = await response.json();
-                const product = products.find(p => p.id === productId);
+                product = products.find(p => p.id === productId);
+            
 
                 if (product) {
                     // Cập nhật Breadcrumb
@@ -387,6 +405,49 @@
                 //window.location.href = 'index.html';
             }
         });
+        // Xử lý nút "Yêu thích"
+const addToFavoriteBtn = document.getElementById('add-to-favorite-btn');
+if (addToFavoriteBtn) {
+    addToFavoriteBtn.addEventListener('click', function () {
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+        const index = favorites.findIndex(p => p.id === product.id);
+
+        if (index === -1) {
+            // Chưa có → thêm
+            favorites.push({
+                id: product.id,
+                name: product.name,
+                image: product.images[0] || 'images/placeholder.jpg'
+            });
+            showFavoriteAlert('Đã thêm vào Yêu Thích', 'success');
+        } else {
+            // Đã có → xóa
+            favorites.splice(index, 1);
+            showFavoriteAlert('Đã xóa khỏi Yêu Thích', 'danger');
+        }
+
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    });
+}
+
+function showFavoriteAlert(message, type = 'success') {
+    const alertBox = document.getElementById('favorite-alert');
+    alertBox.querySelector('.alert').className = `alert alert-${type} alert-dismissible fade show shadow`;
+    alertBox.querySelector('.alert').innerHTML = `<strong>✔</strong> ${message}`;
+    alertBox.style.display = 'block';
+    setTimeout(() => {
+        alertBox.style.display = 'none';
+    }, 3000);
+}
+
     </script>
+</div>
+<div id="favorite-alert" class="position-fixed top-0 end-0 p-3" style="z-index: 1055; display: none;">
+    <div class="alert alert-success alert-dismissible fade show shadow" role="alert">
+        <strong>✔</strong> Đã thêm vào <strong>Yêu Thích</strong>!
+    </div>
+</div>
+
 </body>
 </html>
