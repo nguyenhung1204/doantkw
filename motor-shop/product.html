@@ -409,7 +409,14 @@
 const addToFavoriteBtn = document.getElementById('add-to-favorite-btn');
 if (addToFavoriteBtn) {
     addToFavoriteBtn.addEventListener('click', function () {
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        const username = localStorage.getItem('username');
+if (!username) {
+    alert('Vui lòng đăng nhập để sử dụng tính năng yêu thích.');
+    return;
+}
+const key = `favorites_${username}`;
+let favorites = JSON.parse(localStorage.getItem(key)) || [];
+
 
         const index = favorites.findIndex(p => p.id === product.id);
 
@@ -427,7 +434,7 @@ if (addToFavoriteBtn) {
             showFavoriteAlert('Đã xóa khỏi Yêu Thích', 'danger');
         }
 
-        localStorage.setItem('favorites', JSON.stringify(favorites));
+        localStorage.setItem(key, JSON.stringify(favorites));
     });
 }
 
