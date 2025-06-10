@@ -124,6 +124,7 @@
                     if (user) {
                         localStorage.setItem('loggedIn', 'true');
                         localStorage.setItem('role', 'user');
+                        localStorage.setItem('username', user.username);
                         alert('Đăng nhập thành công với tài khoản user!');
                         window.location.href = 'index.html';
                         return;
