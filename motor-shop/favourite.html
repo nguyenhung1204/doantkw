@@ -31,6 +31,23 @@
     </style>
 </head>
 <body>
+    <div class="d-flex flex-column min-vh-100">
+    <!-- Header -->
+    <header class="bg-dark py-3 sticky-navbar">...</header>
+
+    <!-- Main -->
+    <main class="container mt-4 flex-grow-1">
+      <!-- Danh sách yêu thích -->
+      <h2 class="mb-4"><i class="fas fa-heart text-danger me-2"></i>Danh sách Yêu Thích</h2>
+      <div id="favorite-container" class="row g-4"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+      <!-- Nội dung footer -->
+    </footer>
+  </div>
+
     <!-- Navbar -->
     <header class="bg-dark py-3 sticky-navbar">
         <div class="container">
@@ -76,13 +93,6 @@
             </nav>
         </div>
     </header>
-
-    <!-- Danh sách yêu thích -->
-    <div class="container mt-4">
-        <h2 class="mb-4"><i class="fas fa-heart text-danger me-2"></i>Danh sách Yêu Thích</h2>
-        <div id="favorite-container" class="row g-4"></div>
-    </div>
-
     <!-- Footer -->
     <footer class="bg-dark text-white py-5 w-100" style="position:relative;left:0;right:0;width:100vw;min-width:100vw;overflow-x:hidden;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%); margin-bottom: calc(-50vh);">
         <div class="container">
@@ -142,41 +152,61 @@
     <!-- JS yêu thích -->
     <script>
     function renderFavorites() {
-        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        const container = document.getElementById('favorite-container');
-        container.innerHTML = '';
+    const username = localStorage.getItem('username');
+    const container = document.getElementById('favorite-container');
 
-        if (favorites.length === 0) {
-            container.innerHTML = '<div class="col-12"><div class="alert alert-info">Bạn chưa thêm sản phẩm nào vào Yêu Thích.</div></div>';
-        } else {
-            favorites.forEach(p => {
-                const col = document.createElement('div');
-                col.className = 'col-md-4';
-                col.innerHTML = `
-                    <div class="card favorite-item h-100">
-                        <img src="${p.image || 'Images/placeholder.jpg'}" alt="${p.name}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">${p.name}</h5>
-                            <p class="card-text">ID: ${p.id}</p>
-                            <div class="d-flex justify-content-between">
-                            <button class="btn btn-sm btn-danger" onclick="removeFavorite('${p.id}')">Xóa</button>
-                            <a href="product.html?id=${p.id}" class="btn btn-sm btn-primary">Xem chi tiết</a>
+    // Kiểm tra đăng nhập
+    if (!username) {
+        container.innerHTML = '<div class="col-12"><div class="alert alert-warning">Vui lòng đăng nhập để xem danh sách yêu thích.</div></div>';
+        return;
+    }
 
+    // Lấy danh sách yêu thích riêng cho user đang đăng nhập
+    const favorites = JSON.parse(localStorage.getItem(`favorites_${username}`)) || [];
+    container.innerHTML = '';
+
+    if (favorites.length === 0) {
+        container.innerHTML = '<div class="col-12"><div class="alert alert-info">Bạn chưa thêm sản phẩm nào vào Yêu Thích.</div></div>';
+    } else {
+        favorites.forEach(p => {
+            const col = document.createElement('div');
+            col.className = 'col-md-4';
+
+            const actionButtons = `
+                <button class="btn btn-sm btn-danger" onclick="removeFavorite('${p.id}')">Xóa</button>
+                <a href="product.html?id=${p.id}" class="btn btn-sm btn-primary">Xem chi tiết</a>
+            `;
+
+            col.innerHTML = `
+                <div class="card favorite-item h-100">
+                    <img src="${p.image || 'Images/placeholder.jpg'}" alt="${p.name}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">${p.name}</h5>
+                        <p class="card-text">ID: ${p.id}</p>
+                        <div class="d-flex justify-content-between">
+                            ${actionButtons}
                         </div>
                     </div>
-                    </div>
-                `;
-                container.appendChild(col);
-            });
-        }
+                </div>
+            `;
+            container.appendChild(col);
+        });
     }
+}
+
 
     function removeFavorite(id) {
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        favorites = favorites.filter(p => p.id !== parseInt(id));
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        renderFavorites();
-    }
+    const username = localStorage.getItem('username');
+    if (!username) return;
+
+    const key = `favorites_${username}`;
+    let favorites = JSON.parse(localStorage.getItem(key)) || [];
+
+    favorites = favorites.filter(p => p.id != id); // Dùng != để tránh lỗi kiểu dữ liệu
+    localStorage.setItem(key, JSON.stringify(favorites));
+    renderFavorites();
+}
+
 
     document.addEventListener('DOMContentLoaded', function() {
         renderFavorites();
@@ -234,6 +264,36 @@
         window.location.href = 'product.html';
     }
 }
+function addToFavorites(product) {
+    const username = localStorage.getItem('username');
+    if (!username) {
+        alert("Vui lòng đăng nhập để thêm vào yêu thích.");
+        return;
+    }
+
+    const key = `favorites_${username}`;
+    function removeFavorite(id) {
+    const username = localStorage.getItem('username');
+    if (!username) return;
+
+    const key = `favorites_${username}`;
+    let favorites = JSON.parse(localStorage.getItem(key)) || [];
+
+    favorites = favorites.filter(p => p.id !== parseInt(id));
+    localStorage.setItem(key, JSON.stringify(favorites));
+    renderFavorites(); // Cập nhật lại danh sách
+}
+
+    // Kiểm tra trùng ID
+    if (!favorites.some(p => p.id === product.id)) {
+        favorites.push(product);
+        localStorage.setItem(key, JSON.stringify(favorites));
+        alert("Đã thêm vào danh sách yêu thích!");
+    } else {
+        alert("Sản phẩm đã có trong danh sách yêu thích.");
+    }
+}
+
     </script>
 </body>
 </html>
